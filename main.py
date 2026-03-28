@@ -1,3 +1,6 @@
+from imports.get_shared_mem import get_shared_mem
+from imports.get_extended_shared_mem import read_data_from_shared_memory
+
 from obsws_python import ReqClient
 import psutil, datetime
 import time, os
@@ -36,6 +39,11 @@ print("Connected to OBS")
 # zapnout nahrávání
 client.start_record()
 
-
-
+last_current_time = get_shared_mem().graphics.currentTime
+def event(last_current_time):
+    info = get_shared_mem()
+    
+    current_time = info.graphics.currentTime
+    
+    return current_time < last_current_time
 

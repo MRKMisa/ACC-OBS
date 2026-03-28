@@ -1,14 +1,22 @@
-import threading
+import datetime, os
+  
+  
+def main():
+    print("Main")
 
-event = threading.Event()
 
-def worker():
-    print("Čekám...")
-    event.wait()  # tady to čeká bez CPU zatížení
-    print("Událost nastala!")
+def event():
+    now = datetime.datetime.now() 
+    return now.microsecond//100000 == 0
 
-t = threading.Thread(target=worker)
-t.start()
 
-input("Stiskni Enter...")
-event.set()  # vyvolá event
+def run(d=0.1):
+    while True:
+        if event():
+            main()
+        else:
+            os.system("cls")
+            
+
+
+run()
