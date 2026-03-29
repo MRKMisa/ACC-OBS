@@ -1,4 +1,4 @@
-import datetime, os
+import datetime, os, time
   
   
 def main():
@@ -16,6 +16,8 @@ def run(d=0.1):
             main()
         else:
             os.system("cls")
+            
+        time.sleep(d)
             
 
 

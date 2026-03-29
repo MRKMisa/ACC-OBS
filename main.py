@@ -16,14 +16,21 @@ def stop_recording_and_rename(client):
 
     if os.path.exist("C:/MoTeC/Videos/"+name):
         print("Fname exist.")
-        nname = ""
+        info = get_shared_mem()
+        
+        nname = f"{info.sttic.track}-{info.statci.carModel}-{info.graphics.lastTime}-{x.strftime("%Y-%m-%d_%H-%M-%S")}" #<track>-<car>-<last-lap>-<time>
+        
+        try:
+            os.rename("C:/MoTeC/Videos/"+name, "C:/MoTeC/Videos/"+nname)
+        except Exception as e:
+            print("Cant rename file. {e}")
     else:
         print("Fname do not exist.")
 
 
 
-
-if not "obs64.exe" in (i.name() for i in psutil.process_iter()):
+#Starting OBS
+if not "obs64.exe" in (i.name() for i in psutil.process_iter()): #If OBS is not running
     print("Starting OBS")
     import imports.start_obs as start_obs
     
@@ -32,18 +39,25 @@ if not "obs64.exe" in (i.name() for i in psutil.process_iter()):
 print("OBS is open")
 
 print("Connecting to OBS...")
-pwd = 'AkE5MGKgeBRAF3ti'
-client = ReqClient(host='localhost', port=4455, password=pwd)
+pwd = 'AkE5MGKgeBRAF3ti' #OBS password
+client = ReqClient(host='localhost', port=4455, password=pwd) #Connect to OBS with web socket
 print("Connected to OBS")
 
-# zapnout nahrávání
-client.start_record()
 
-last_current_time = get_shared_mem().graphics.currentTime
+
+last_current_time = get_shared_mem().graphics.currentTime #Current ACC time
 def event(last_current_time):
     info = get_shared_mem()
     
     current_time = info.graphics.currentTime
     
-    return current_time < last_current_time
+    return current_time < last_current_time #If lap started. Because curr time is set to 0:00.00 when lap stared but last time would be greather.
 
+def main():
+    status = client.get_record_status().output_active
+    if status:
+        stop_recording_and_rename(client)
+    
+    client.start_record()
+    
+    
