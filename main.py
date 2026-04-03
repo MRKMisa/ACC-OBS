@@ -72,7 +72,10 @@ def main():
     
     
 def run(d=0.01):
-    while True:
+    global Config_settings
+    loop = True
+    
+    while loop:
         if event():
             main()
             
