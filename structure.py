@@ -10,7 +10,7 @@ def event():
     return now.microsecond//100000 == 0
 
 
-def run(d=0.1):
+def run(d=0.01):
     while True:
         if event():
             main()

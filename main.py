@@ -3,29 +3,40 @@ from imports.get_extended_shared_mem import read_data_from_shared_memory
 
 from obsws_python import ReqClient
 import psutil, datetime
-import time, os
+import time, os, shutil
+
+    
+global Config_settings
+from imports import config
+Config_settings = config.get_config_file()
+
 
 def stop_recording_and_rename(client):
     # zastavit nahrávání
     client.stop_record()
 
     x = datetime.datetime.now()
-    print("Recordin stoped. Renaming file.")
+    print("Recording stoped. Renaming file.")
 
     name = (x.strftime("%Y-%m-%d_%H-%M-%S")) + ".mkv"
 
-    if os.path.exist("C:/MoTeC/Videos/"+name):
+    if os.path.exist(Config_settings.obs_path + name):
         print("Fname exist.")
         info = get_shared_mem()
         
-        nname = f"{info.sttic.track}-{info.statci.carModel}-{info.graphics.lastTime}-{x.strftime("%Y-%m-%d_%H-%M-%S")}" #<track>-<car>-<last-lap>-<time>
+        nname = f"{info.static.track}-{info.static.carModel}-{info.graphics.lastTime}-{x.strftime("%Y-%m-%d_%H-%M-%S")}" #<track>-<car>-<last-lap>-<time>
         
         try:
-            os.rename("C:/MoTeC/Videos/"+name, "C:/MoTeC/Videos/"+nname)
+            shutil.copy(Config_settings.obs_path + name, Config_settings.motec_path + nname)
         except Exception as e:
-            print("Cant rename file. {e}")
+            print("Can´t copy file.")
+            print(e)
+            exit()
     else:
         print("Fname do not exist.")
+        print(Config_settings.obs_path + name)
+        print(os.listdir())
+        exit()
 
 
 
@@ -39,8 +50,7 @@ if not "obs64.exe" in (i.name() for i in psutil.process_iter()): #If OBS is not 
 print("OBS is open")
 
 print("Connecting to OBS...")
-pwd = 'AkE5MGKgeBRAF3ti' #OBS password
-client = ReqClient(host='localhost', port=4455, password=pwd) #Connect to OBS with web socket
+client = ReqClient(host='localhost', port=Config_settings.obs_port, password=Config_settings.obs_pwd) #Connect to OBS with web socket
 print("Connected to OBS")
 
 
@@ -61,3 +71,20 @@ def main():
     client.start_record()
     
     
+def run(d=0.01):
+    while True:
+        if event():
+            main()
+            
+        #Every 10s update config
+        now = datetime.datetime.now()
+        if [*str(now.second)][1] == "0":
+            Config_settings = config.get_config_file()
+            
+        
+        time.sleep(d)
+        
+if __name__ == "__main__":
+    delay = Config_settings.delay
+    
+    run(delay)
