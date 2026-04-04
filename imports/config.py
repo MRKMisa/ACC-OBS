@@ -11,10 +11,13 @@ def delete_comments(config):
 
     return new_config
 
-def get_config_file():
+def get_config_file(Last_Config_settings=None):
+    if Last_Config_settings != None: update_mode = True 
+    else: update_mode = False
+    #Update mode means script will not printing every detail but will only tell what change from Last_Config_settings
 
     if os.path.exists("config.ini"):
-        print("Loading config.ini file...")
+        if not update_mode: print("Loading config.ini file...")
         
         #OBS password
         try:
@@ -38,6 +41,7 @@ def get_config_file():
             if obs_pwd == "" or obs_pwd == None:
                 print("Can´t get OBS password from config.ini file!!!")
                 print("Maybe you let password blank.")
+                print("Password is necessarily. Exiting script...")
                 exit()
                 
         except Exception as e:
@@ -65,7 +69,7 @@ def get_config_file():
             
             if obs_port == "" or obs_port == None:
                 obs_port = "4455" #Default port
-                print("OBS port set on default (4455)")
+                if not update_mode: print("OBS port set on default (4455)")
                 
         except Exception as e:
              print("Can´t get OBS port from config.ini file...")
@@ -94,7 +98,7 @@ def get_config_file():
             
             if obs_app_path == "" or obs_app_path == None:
                 obs_app_path = r"C:\Program Files\obs-studio\bin\64bit" #Default path
-                print(r"OBS app path set on default (C:\Program Files\obs-studio\bin\64bit)")
+                if not update_mode: print(r"OBS app path set on default (C:\Program Files\obs-studio\bin\64bit)")
                 
         except Exception as e:
              print("Can´t get OBS app path from config.ini file...")
@@ -122,7 +126,7 @@ def get_config_file():
             
             if obs_output_path == "" or obs_output_path == None:
                 obs_output_path = os.path.expanduser("~/Videos") #Default path
-                print("OBS output path set on default (user videos folder)")
+                if not update_mode: print("OBS output path set on default (user videos folder)")
                 
         except Exception as e:
              print("Can´t get OBS output path from config.ini file...")
@@ -150,7 +154,7 @@ def get_config_file():
             
             if motec_path == "" or motec_path == None:
                 motec_path = "C:/MoTeC/Videos" #Default path
-                print("Motec path set on default (C:/MoTeC/Videos)")
+                if not update_mode: print("Motec path set on default (C:/MoTeC/Videos)")
                 
         except Exception as e:
              print("Can´t get Motec path from config.ini file...")
@@ -178,7 +182,7 @@ def get_config_file():
             
             if loop_delay == "" or loop_delay == None:
                 loop_delay = 0.1 #Default delay
-                print("Script loop delay set on default (0.1s)")
+                if not update_mode: print("Script loop delay set on default (0.1s)")
                 
         except Exception as e:
              print("Can´t get Script loop delay from config.ini file...")
@@ -188,6 +192,10 @@ def get_config_file():
                 
                 
     else:
+        if update_mode: #If script can´t find config.ini it´s useless to update config setting because it will be default. So we will just return old settings.
+            return Last_Config_settings
+            
+            
         print("Can´t find config.ini file. Setting default settings...")
         
         
@@ -229,8 +237,42 @@ def get_config_file():
             self.obs_output_path = obs_output_path
             self.motec_path = motec_path
             
-            self.delay = delay
+            self.loop_delay = loop_delay
     
+    
+    #Tell what changed...
+    if update_mode:
+        if Last_Config_settings.obs_pwd != Config_settings().obs_pwd: print(f"Config change saved. OBS password: {Last_Config_settings.obs_pwd} >> {Config_settings().obs_pwd}")
+        if Last_Config_settings.obs_port != Config_settings().obs_port: print(f"Config change saved. OBS port: {Last_Config_settings.obs_port} >> {Config_settings().obs_port}")
+        
+        if Last_Config_settings.obs_app_path != Config_settings().obs_app_path: print(f"Config change saved. OBS app path: {Last_Config_settings.obs_app_path} >> {Config_settings().obs_app_path}")
+        if Last_Config_settings.obs_output_path != Config_settings().obs_output_path: print(f"Config change saved. OBS output path: {Last_Config_settings.obs_output_path} >> {Config_settings().obs_output_path}")
+        if Last_Config_settings.motec_path != Config_settings().motec_path: print(f"Config change saved. Motec path: {Last_Config_settings.motec_path} >> {Config_settings().motec_path}")
+        
+        if Last_Config_settings.loop_delay != Config_settings().loop_delay: print(f"Config change saved. Script loop delay: {Last_Config_settings.loop_delay} >> {Config_settings().loop_delay}")
+        
         
     return Config_settings()
+
+
+def print_from_config_class(Config_settings):
+    print("OBS pwd: " + Config_settings.obs_pwd)
+    print("OBS port: " + Config_settings.obs_port)
     
+    print("OBS app path: " + Config_settings.obs_app_path)
+    print("OBS output path: " + Config_settings.obs_output_path)
+    print("Motec path: " + Config_settings.motec_path)
+    
+    print("Script loop delay: " + Config_settings.loop_delay)
+    
+if __name__ == "__main__":
+    
+    print("---First get---")
+    Config_settings = get_config_file()
+    
+    print_from_config_class(Config_settings)
+    
+    print("---Second get (in update mode)---")
+    Config_settings = get_config_file(Config_settings)
+    
+    print_from_config_class(Config_settings)

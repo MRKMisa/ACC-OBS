@@ -1,8 +1,6 @@
 import subprocess, datetime, shutil, os
-try:
-    from imports.get_shared_mem import get_shared_mem
-except:
-    from get_shared_mem import get_shared_mem
+
+from imports import get_shared_mem
 
 
 def start_obs(cwd=r"C:\Program Files\obs-studio\bin\64bit"):
@@ -27,7 +25,7 @@ def stop_recording_and_rename(client, Config_settings):
         print("Fname exist.")
         info = get_shared_mem()
         
-        nname = f"{info.static.track}-{info.static.carModel}-{info.graphics.lastTime}-{x.strftime("%Y-%m-%d_%H-%M-%S")}" #<track>-<car>-<last-lap>-<time>
+        nname = f'{info.static.track}-{info.static.carModel}-{info.graphics.lastTime}-{x.strftime("%Y-%m-%d_%H-%M-%S")}' #<track>-<car>-<last-lap>-<time>
         
         try:
             shutil.copy(Config_settings.obs_path + name, Config_settings.motec_path + nname)
@@ -44,10 +42,10 @@ def stop_recording_and_rename(client, Config_settings):
 
 if __name__ == "__main__":
     #Get obs_app_path from config.ini
-    import config
+    from imports import get_config_file
     
     
-    Config_settings = config.get_config_file()
+    Config_settings = get_config_file()
     #cwd=r"C:\Program Files\obs-studio\bin\64bit"
     
     
