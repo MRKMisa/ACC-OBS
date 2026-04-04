@@ -199,3 +199,32 @@ def get_shared_mem():
     info = SimInfo()
 
     return info
+
+
+if __name__ == "__main__":
+    info = get_shared_mem()
+    
+    print(f"Game status: {info.graphics.status}", end="")
+    if info.graphics.status == 0:
+        print("(OFF)")
+    elif info.graphics.status == 1:
+        print("(Replay)")
+    elif info.graphics.status == 2:
+        print("(Live)")
+    elif info.graphics.status == 3:
+        print("(Pause)")
+
+
+    print(f"Packet ID: {info.physics.packetId}")
+    
+    print(f"Session: {info.graphics.session}")
+    
+    print(f"Current Time: {info.graphics.currentTime}")
+    
+    print(f"Track: {info.static.track}")
+    
+    print(f"Car model: {info.static.carModel}")
+    
+    print(f"Player name: {info.static.playerName}")
+    
+    
