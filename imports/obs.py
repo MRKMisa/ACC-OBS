@@ -21,22 +21,22 @@ def stop_recording_and_rename(client, Config_settings):
 
     name = (x.strftime("%Y-%m-%d_%H-%M-%S")) + ".mkv"
 
-    if os.path.exist(Config_settings.obs_path + name):
+    if os.path.exist(Config_settings.obs_output_path + name):
         print("Fname exist.")
         info = get_shared_mem()
         
         nname = f'{info.static.track}-{info.static.carModel}-{info.graphics.lastTime}-{x.strftime("%Y-%m-%d_%H-%M-%S")}' #<track>-<car>-<last-lap>-<time>
         
         try:
-            shutil.copy(Config_settings.obs_path + name, Config_settings.motec_path + nname)
+            shutil.move(Config_settings.obs_output_path + name, Config_settings.motec_path + nname)
         except Exception as e:
-            print("Can´t copy file.")
+            print("Can´t move file.")
             print(e)
             exit()
     else:
         print("Fname do not exist.")
-        print(Config_settings.obs_path + name)
-        print(os.listdir())
+        print(Config_settings.obs_output_path + name)
+        print(os.listdir(Config_settings.obs_output_path))
         exit()
 
 

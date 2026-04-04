@@ -45,27 +45,49 @@ if not "obs64.exe" in (i.name() for i in psutil.process_iter()): #If OBS is not 
 
 
 print("OBS is open.")
+print()
 
 
 print("Connecting to OBS...")
 try:
+    global client
     client = ReqClient(host='localhost', port=Config_settings.obs_port, password=Config_settings.obs_pwd) #Connect to OBS with web socket
 except Exception as e:
     print("Can´t connect to OBS...")
     print(e)
     exit()
-print("Connected to OBS")
+print("Connected to OBS.")
+print()
 
 
-last_current_time = get_shared_mem().graphics.currentTime #Current ACC time
-def event(last_current_time):
+def event(last_current_time, last_state):
     info = get_shared_mem()
+    
+    
+    if info.graphics.status != 2: # If game is not live
+        if info.graphics.status == 0:
+            if last_state != 0:
+                print("Game is not running..")
+            time.sleep(0.5)
+        elif info.graphics.status == 1:
+            if last_state != 1:
+                print("Game is in replay...")
+            time.sleep(0.3)            
+        elif info.graphics.status == 3:
+            if last_state != 3:
+                print("Game is pause...")
+                        
+        return False, None, info.graphics.status
+    
     
     current_time = info.graphics.currentTime
     
-    return current_time < last_current_time #If lap started. Because curr time is set to 0:00.00 when lap stared but last time would be greather.
+    if last_current_time == None:
+        return False, current_time, None
+    
+    return current_time < last_current_time, current_time, None #If lap started. Because curr time is set to 0:00.00 when lap stared but last time would be greather.
 
-def main():
+def main(client, Config_settings):
     status = client.get_record_status().output_active
     if status:
         stop_recording_and_rename(client)
@@ -73,23 +95,28 @@ def main():
     client.start_record()
     
     
-def run(d=0.01):
-    global Config_settings
+def run():
+    global Config_settings, client
+    last_current_time = get_shared_mem().graphics.currentTime #Current AC or ACC time
+    last_config_update = time.time()
+    last_state = None
     loop = True
     
+    
     while loop:
-        if event():
-            main()
+        b, last_current_time, last_state = event(last_current_time, last_state)
+        if b:
+            main(client, Config_settings)
             
         #Every 10s update config
-        now = datetime.datetime.now()
-        if [*str(now.second)][1] == "0":
-            Config_settings = get_config_file()
+        update_frequency = 10 #in seconds
+        
+        if time.time() > last_config_update+update_frequency:
+            Config_settings = get_config_file(Config_settings)
+            last_config_update = time.time()
             
         
-        time.sleep(d)
+        time.sleep(float(Config_settings.loop_delay))
         
 if __name__ == "__main__":
-    loop_delay = Config_settings.loop_delay
-    
-    run(loop_delay)
+    run()
