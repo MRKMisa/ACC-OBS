@@ -177,8 +177,8 @@ def get_config_file():
                print("Can´t find loop_delay in config.ini...")
             
             if loop_delay == "" or loop_delay == None:
-                loop_delay = 0.01 #Default delay
-                print("Script loop delay set on default (0.01s)")
+                loop_delay = 0.1 #Default delay
+                print("Script loop delay set on default (0.1s)")
                 
         except Exception as e:
              print("Can´t get Script loop delay from config.ini file...")
@@ -216,8 +216,8 @@ def get_config_file():
         
         
         #Script loop delay
-        delay = 0.01
-        print("Script loop delay set on default. (0.01s)")
+        delay = 0.1
+        print("Script loop delay set on default. (0.1s)")
         
 
     class Config_settings:
