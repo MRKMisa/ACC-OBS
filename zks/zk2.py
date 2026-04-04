@@ -7,9 +7,9 @@ import time, psutil
 #Starting OBS
 if not "obs64.exe" in (i.name() for i in psutil.process_iter()): #If OBS is not running
     print("Starting OBS")
-    import imports.start_obs as start_obs
+    import imports.obs as obs
     
-    start_obs.main()
+    obs.start_obs()
     time.sleep(1)
 print("OBS is open")
 

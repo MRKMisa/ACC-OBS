@@ -3,7 +3,7 @@ from imports.get_extended_shared_mem import read_data_from_shared_memory
 
 from obsws_python import ReqClient
 import psutil, datetime
-import time, os, shutil
+import time
 
     
 global Config_settings
@@ -11,46 +11,27 @@ from imports import config
 Config_settings = config.get_config_file()
 
 
-def stop_recording_and_rename(client):
-    # zastavit nahrávání
-    client.stop_record()
-
-    x = datetime.datetime.now()
-    print("Recording stoped. Renaming file.")
-
-    name = (x.strftime("%Y-%m-%d_%H-%M-%S")) + ".mkv"
-
-    if os.path.exist(Config_settings.obs_path + name):
-        print("Fname exist.")
-        info = get_shared_mem()
-        
-        nname = f"{info.static.track}-{info.static.carModel}-{info.graphics.lastTime}-{x.strftime("%Y-%m-%d_%H-%M-%S")}" #<track>-<car>-<last-lap>-<time>
-        
-        try:
-            shutil.copy(Config_settings.obs_path + name, Config_settings.motec_path + nname)
-        except Exception as e:
-            print("Can´t copy file.")
-            print(e)
-            exit()
-    else:
-        print("Fname do not exist.")
-        print(Config_settings.obs_path + name)
-        print(os.listdir())
-        exit()
-
-
-
 #Starting OBS
 if not "obs64.exe" in (i.name() for i in psutil.process_iter()): #If OBS is not running
-    print("Starting OBS")
-    import imports.start_obs as start_obs
+    print("Starting OBS...")
+    import imports.obs as obs
     
-    start_obs.main()
+    try:
+        obs.start_obs()
+    except Exception as e:
+        print("Can´t start OBS...")
+        print(e)
+        exit()
     time.sleep(1)
-print("OBS is open")
+print("OBS is open.")
 
 print("Connecting to OBS...")
-client = ReqClient(host='localhost', port=Config_settings.obs_port, password=Config_settings.obs_pwd) #Connect to OBS with web socket
+try:
+    client = ReqClient(host='localhost', port=Config_settings.obs_port, password=Config_settings.obs_pwd) #Connect to OBS with web socket
+except Exception as e:
+    print("Can´t connect to OBS...")
+    print(e)
+    exit()
 print("Connected to OBS")
 
 
@@ -66,7 +47,7 @@ def event(last_current_time):
 def main():
     status = client.get_record_status().output_active
     if status:
-        stop_recording_and_rename(client)
+        obs.stop_recording_and_rename(client)
     
     client.start_record()
     
