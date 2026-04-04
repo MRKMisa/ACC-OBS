@@ -210,3 +210,4 @@ __marimo__/
 # ZK files
 zks/
 zk*.py
+structure.py
