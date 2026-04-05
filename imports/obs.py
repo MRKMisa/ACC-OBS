@@ -20,14 +20,17 @@ def stop_recording_and_rename(client, Config_settings):
     print("Recording stoped. Renaming file.")
 
     name = (x.strftime("%Y-%m-%d_%H-%M-%S")) + ".mkv"
+    print(f"Fname - {name}")
 
-    if os.path.exist(Config_settings.obs_output_path + name):
+    if os.path.exists(Config_settings.obs_output_path + name):
         print("Fname exist.")
         info = get_shared_mem()
         
         nname = f'{info.static.track}-{info.static.carModel}-{info.graphics.lastTime}-{x.strftime("%Y-%m-%d_%H-%M-%S")}' #<track>-<car>-<last-lap>-<time>
+        print(f"Nname - {nname}")
         
         try:
+            print(f"Move {Config_settings.obs_output_path + name} > {Config_settings.motec_path + nname}")
             shutil.move(Config_settings.obs_output_path + name, Config_settings.motec_path + nname)
         except Exception as e:
             print("Can´t move file.")

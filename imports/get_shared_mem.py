@@ -219,7 +219,7 @@ if __name__ == "__main__":
     
     print(f"Session: {info.graphics.session}")
     
-    print(f"Current Time: {info.graphics.currentTime}")
+    print(f"Current Time: {info.graphics.iCurrentTime}")
     
     print(f"Track: {info.static.track}")
     

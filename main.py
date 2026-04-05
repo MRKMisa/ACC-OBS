@@ -4,6 +4,8 @@ from imports import read_data_from_shared_memory
 from obsws_python import ReqClient
 import psutil, datetime, time
 
+from imports import stop_recording_and_rename
+
 
 global Config_settings
 from imports import get_config_file, print_from_config_class
@@ -18,7 +20,7 @@ print()
 #Starting OBS
 if not "obs64.exe" in (i.name() for i in psutil.process_iter()): #If OBS is not running
     print("Starting OBS...")
-    from imports import start_obs, stop_recording_and_rename
+    from imports import start_obs
     
     try:
         start_obs()
@@ -80,7 +82,7 @@ def event(last_current_time, last_state):
         return False, None, info.graphics.status
     
     
-    current_time = info.graphics.currentTime
+    current_time = info.graphics.iCurrentTime
     
     if last_current_time == None:
         return False, current_time, None
@@ -90,14 +92,15 @@ def event(last_current_time, last_state):
 def main(client, Config_settings):
     status = client.get_record_status().output_active
     if status:
-        stop_recording_and_rename(client)
+        stop_recording_and_rename(client, Config_settings)
     
     client.start_record()
+    print("Recording started...")
     
     
 def run():
     global Config_settings, client
-    last_current_time = get_shared_mem().graphics.currentTime #Current AC or ACC time
+    last_current_time = get_shared_mem().graphics.iCurrentTime #Current AC or ACC time
     last_config_update = time.time()
     last_state = None
     loop = True
