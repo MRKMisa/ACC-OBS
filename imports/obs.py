@@ -43,6 +43,36 @@ def stop_recording_and_rename(client, Config_settings):
         exit()
 
 
+def check_recording_matching(client, recording, attemps=0):
+    status = client.get_record_status().output_active
+
+    if recording and not status:
+        print("Recording var does not match real OBS status")
+        print("Recording: " + recording, "OBS status: " + status)
+        print("Atempt " + attemps)
+        if attemps <= 3:
+            if recording and not status:
+                start_recording(client)
+                return check_recording_matching(client, recording, attemps=attemps+1)
+        else:
+            return False
+        
+        
+        
+    else:
+        return True
+
+def start_recording(client):
+    print("Starting recording...")
+    status = client.get_record_status().output_active
+    if status:
+        print("OBS is already recording.")
+        return
+    
+    client.start_record()
+    print("Recording started.")
+
+
 if __name__ == "__main__":
     #Get obs_app_path from config.ini
     from imports import get_config_file

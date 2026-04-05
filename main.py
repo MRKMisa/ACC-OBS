@@ -4,7 +4,7 @@ from imports import read_data_from_shared_memory
 from obsws_python import ReqClient
 import psutil, datetime, time
 
-from imports import stop_recording_and_rename
+from imports import stop_recording_and_rename, check_recording_matching, start_recording
 
 
 global Config_settings
@@ -62,8 +62,12 @@ print("Connected to OBS.")
 print()
 
 
-def event(last_current_time, last_state):
+def event(last_state): # return if OBS should be recording
     info = get_shared_mem()
+    
+    
+    
+    
     
     
     if info.graphics.status != 2: # If game is not live
@@ -74,52 +78,68 @@ def event(last_current_time, last_state):
         elif info.graphics.status == 1:
             if last_state != 1:
                 print("Game is in replay...")
-            time.sleep(0.3)            
+            time.sleep(0.3)
         elif info.graphics.status == 3:
             if last_state != 3:
                 print("Game is pause...")
-                        
-        return False, None, info.graphics.status
-    
-    
-    current_time = info.graphics.iCurrentTime
-    
-    if last_current_time == None:
-        return False, current_time, None
-    
-    return current_time < last_current_time, current_time, None #If lap started. Because curr time is set to 0:00.00 when lap stared but last time would be greather.
+            time.sleep(0.1)
+                
+        return False, info.graphics.status # Return that OBS should not be recording
 
-def main(client, Config_settings):
-    status = client.get_record_status().output_active
-    if status:
-        stop_recording_and_rename(client, Config_settings)
+
+    if last_state != 2:
+        print("Game is running...")
+            
     
-    client.start_record()
-    print("Recording started...")
+                        
+        
     
     
+    current_time = info.graphics.iCurrentTime # Get AC or ACC time i in front mean in miliseconds. So it not 0:00.123 but 123. It´s better working with.
+    
+    if current_time == "-:--.---": # AC or ACC will return this time when session doesn´t started yet. If ses does not stared we dont want to recording.
+        return False, info.graphics.status # So we will return False
+    elif not (current_time).isdigit(): # Just test. Because I dont know what will actually game return.
+        print(f"Not digit - {current_time}")
+        return False, info.graphics.status
+    
+    return True, info.graphics.status # There we can just return True because here we want to recording.
+
+
+
+
+
 def run():
     global Config_settings, client
-    last_current_time = get_shared_mem().graphics.iCurrentTime #Current AC or ACC time
     last_config_update = time.time()
     last_state = None
     loop = True
     
+    recording = False
+    
     
     while loop:
-        b, last_current_time, last_state = event(last_current_time, last_state)
+        b, last_state = event(last_state)
         if b:
-            main(client, Config_settings)
-            
+           if not recording:
+                start_recording()
+                
+        else:
+            if recording:
+                stop_recording_and_rename(client, Config_settings)
+
+
+
         #Every 10s update config
         update_frequency = 10 #in seconds
         
         if time.time() > last_config_update+update_frequency:
             Config_settings = get_config_file(Config_settings)
             last_config_update = time.time()
-            
+
         
-        time.sleep(float(Config_settings.loop_delay))
+        if not check_recording_matching(client, recording): print("OBS is not recording!!!"); exit() # Check if recording var match real OBS status
+        time.sleep(float(Config_settings.loop_delay)) #Sleep time by config file - reduce CPU load
         
 if __name__ == "__main__":
     run()
