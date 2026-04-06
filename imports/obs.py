@@ -84,10 +84,10 @@ def start_recording(client):
 def check_OBS_ready(client):
     
     try:
-        client.get_version()
-        return True
+        client.get_version() # Check if OBS is ready
+        return True # If ready just return True to main
     except:
-        print("OBS isn´t ready...")
+        print("OBS isn´t ready...") # If not start waiting
         
         
     print("Waiting to OBS...")
@@ -95,17 +95,18 @@ def check_OBS_ready(client):
     
     start = time.time()
     
-    while time.time() < start+max_OBS_waiting_time:
+    while time.time() < start+max_OBS_waiting_time: # Waiting max 10 sec
         
         try:
-            client.get_version()
-            return True
+            client.get_version() # Get OBS version. If OBS isn´t ready return error.
+            return True # If OBS ready return True to main
         except:
-            time.sleep(0.2)
+            os.system("cls") # Clear terminal because OBS is spaming error messages.
+            time.sleep(0.2) # Wait to OBS can start...
             
     print(f"OBS is not ready in {max_OBS_waiting_time}s...")
     print("Exiting script...")
-    return False
+    return False # Return False that OBS isn´t ready...
 
 
 if __name__ == "__main__":
