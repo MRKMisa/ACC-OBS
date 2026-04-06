@@ -4,7 +4,7 @@ from imports import read_data_from_shared_memory
 from obsws_python import ReqClient
 import psutil, datetime, time
 
-from imports import stop_recording_and_rename, check_recording_matching, start_recording
+from imports import stop_recording_and_rename, check_recording_matching, start_recording, check_OBS_ready
 
 
 global Config_settings
@@ -43,7 +43,7 @@ if not "obs64.exe" in (i.name() for i in psutil.process_iter()): #If OBS is not 
                 print(f"OBS did not start in {max_wating_time_to_obs}s...")
                 print("Exiting script...")
                 exit()
-
+        
 
 
 print("OBS is open.")
@@ -61,13 +61,14 @@ except Exception as e:
 print("Connected to OBS.")
 print()
 
+print("Checking if OBS is ready...")
+if not check_OBS_ready(client): exit()
+print("OBS is ready to use.")
+
+
 
 def event(last_state): # return if OBS should be recording
     info = get_shared_mem()
-    
-    
-    
-    
     
     
     if info.graphics.status != 2: # If game is not live
@@ -138,7 +139,7 @@ def run():
             last_config_update = time.time()
 
         
-        if not check_recording_matching(client, recording): print("OBS is not recording!!!"); exit() # Check if recording var match real OBS status
+        if not check_recording_matching(client, recording, Config_settings): exit() # Check if recording var match real OBS status
         time.sleep(float(Config_settings.loop_delay)) #Sleep time by config file - reduce CPU load
         
 if __name__ == "__main__":
