@@ -70,7 +70,7 @@ print("OBS is ready to use.")
 
 def event(last_state, last_current_time): # return if OBS should be recording
     info = get_shared_mem()
-    print(f"Time: {info.graphics.iCurrentTime}, Last time: {last_current_time}, Curr game status: {info.graphics.status}, Last game status: {last_state}")
+    #print(f"Time: {info.graphics.iCurrentTime}, Last time: {last_current_time}, Curr game status: {info.graphics.status}, Last game status: {last_state}")
     
     if info.graphics.status != 2: # If game is not live
         if info.graphics.status == 0:
@@ -124,12 +124,24 @@ def run():
     loop = True
     
     recording = False # False - not recording, True - recording, None - recording is pause
-    
+    bs = 0
     
     while loop:
         b, last_state, last_current_time = event(last_state, last_current_time)
-        print(f"B: {b}")
         if b:
+            if bs < 0:
+                bs = 0
+                
+            bs += 1
+        else:
+            if bs > 0:
+                bs = 0
+            
+            bs -= 1
+        
+        
+        #print(f"Bs: {b}")
+        if bs > 2:
             if recording == False:
                 start_recording(client)
                 recording = True
@@ -138,7 +150,7 @@ def run():
                 unpause_recording(client, recording)
                 recording = True
                 
-        else:
+        elif bs < -3:
             if recording == True:
                 if last_state == 0:
                     print("Game is not running...")
@@ -160,6 +172,12 @@ def run():
                     pause_recording(client, recording)
                     recording = None # None - pause
                     
+            if recording == None:
+                if last_state == 0:
+                    print("Game is not running...")
+                    stop_recording_and_rename(client, Config_settings)
+                    recording = False        
+                    
 
 
 
@@ -171,8 +189,8 @@ def run():
             last_config_update = time.time()
 
         
-        if not check_recording_matching(client, recording, Config_settings): exit() # Check if recording var match real OBS status
         time.sleep(float(Config_settings.loop_delay)) #Sleep time by config file - reduce CPU load
+        if not check_recording_matching(client, recording, Config_settings): exit() # Check if recording var match real OBS status
         
 if __name__ == "__main__":
     run()

@@ -16,49 +16,182 @@ def start_obs(cwd=r"C:\Program Files\obs-studio\bin\64bit"):
 
 def stop_recording_and_rename(client, Config_settings):
     global name
-    # stop recording
-    client.stop_record()
-    print("Recording stoped. Renaming file.")
 
-    print(f"Fname - {name}")
-    if not os.path.exists(Config_settings.obs_output_path + name):
+    client.stop_record() # Stop recording
+    print("Recording stoped. Renaming file.")
+    
+    try:
+        print(f"Fname - {name}") # If name of the file is saved by script...
+        print("File name is saved.")
+    except:
+        print("Name of the file is not saved. Just stoping recording...") # If not script won´t be renaming and moving record...
+        return
+    
+    #Checking if file exist and if not waiting
+    if not os.path.exists(f"{Config_settings.obs_output_path}/{name}"):
         print("Fname do not exist.")
         
         print("Waiting to file...")
-        max_OBS_wait_time = 5 # In seconds
+        max_OBS_wait_time = 10 # In seconds
         
         start = time.time()
         
-        while not os.path.exists(Config_settings.obs_output_path + name): # IF file exists...
+        while not os.path.exists(f"{Config_settings.obs_output_path}/{name}"): # IF file exists...
             time.sleep(0.3)
             
             if time.time() >= start + max_OBS_wait_time: # If it´s waiting more than max wait time...
                 print("Fname do not exist.")
                 print(f"Waiting {max_OBS_wait_time}s")
-                print(Config_settings.obs_output_path + name)
+                print(f"{Config_settings.obs_output_path}/{name}")
                 print(os.listdir(Config_settings.obs_output_path))
-                exit()
+                
+                
+                print()
+                print()
+                
+                # Getting last video file from the folder...
+                if os.path.exists(f"{Config_settings.obs_output_path}/{name}"): # Last chance if saved name exist in the path
+                    print("File exist.")
+                    break
+                else:
+                    print("Getting last file in folder...") # If file is not exists in folder. Script will get last file in the folder...
+                    
+                    
+                    files = os.listdir(Config_settings.obs_output_path) # Get files
+                    
+                    videos = []
+                    for file in files:
+                        if file.endswith(".mp4"): # Append only mp4 files
+                            videos.append(file) 
+                    
+                    try:
+                        last_video = videos[-1]    # Get lastest mp4 file
+                        print(f"Get last video...")
+                        print(last_video)
+                    except: # If can´t get last mp4 maybe in folder isn´t any... Shuting down script...
+                        print("Can´t get last video...")
+                        print(f"All files: {files}")
+                        print(f"Videos: {videos}")
+                        exit()
+                        
+                    
+                    # Check if file match saved files date
+                    
+                    #V1
+                    '''
+                    def get_time_date_from_file_name(file_name):
+                        
+                        file_name = file_name.replace(".mp4", "")
+
+                        date = file_name.split("_")[0]
+                        y = date.split("-")[0]
+                        m = date.split("-")[1]
+                        d = date.split("-")[2]
+
+                        time = file_name.split("_")[1]
+                        h = time.split("-")[0]
+                        m = time.split("-")[1]
+                        s = time.split("-")[2]
+                        
+                        
+                        return y, m, d, h, h, s
+                    
+                    try:
+                        my_y, my_m, my_d, my_h, my_h, my_s = get_time_date_from_file_name(name)
+                    except Exception as e:
+                        print("Can´t get date and time from my file name...")
+                        print(e)
+                        exit()
+                        
+                    try:
+                        last_video_y, last_video_m, last_video_d, last_video_h, last_video_h, last_video_s = get_time_date_from_file_name(last_video)
+                    except Exception as e:
+                        print("Can´t get date and time from last file name...")
+                        print(e)
+                        exit()
+                        
+                    if my_y != last_video_y:
+                        print(f"My file name and last video name year does not match...")
+                        print(f"{my_y} - {last_video_y}")
+                        exit()
+                        
+                    '''
+                        
+                    #V2
+                    my_date = datetime.datetime.strptime(name.replace(".mp4"), "%Y-%m-%d_%H-%M-%S")
+                    
+                    last_video_date = datetime.datetime.strptime(last_video.replace(".mp4"), "%Y-%m-%d_%H-%M-%S")
+                    
+                    diff = my_date - last_video_date
+                    
+                    max_diff = 10 # Max my name date difference to last video date from folder. In seconds
+                    
+                    if diff.total_seconds() > max_diff: # If difference from my name file and last file is greather than max script will not use this file. Because OBS name file by time where you stared recording. But I take date next to start_recording command. But there is some delay. So its can be like second of. That would make that script would not find file name in the folder. So I take last video file and check if it´s small diffence. Diff that would realisticly can be in this process. 10s is very big but it´s safe to use.
+                        print(f"Last video from folder is older than my predicted time. Diff: {diff.total_seconds()}. Max: {max_diff}.") # If diff is greather script will stop. Because script think there should be file with this name. So if it´s not there is some issue.
+                        print()
+                        print("Stoping script...")
+                        exit()
+
+
+                    print(f"Get last file from folder. Diff is just: {diff}s. File: {last_video}")
+                    name = last_video
+                    break
+            
+    
                 
         
     
 
-    if os.path.exists(Config_settings.obs_output_path + name):
-        print("Fname exist.")
+    if os.path.exists(f"{Config_settings.obs_output_path}/{name}"):
+        print("Name exist.")
         info = get_shared_mem()
         
-        nname = f'{info.static.track}-{info.static.carModel}-{info.graphics.lastTime}-{name}.mp4' #<track>-<car>-<last-lap>-<time>
+        nname = f'{info.static.track}-{info.static.carModel}-{info.graphics.bestTime}{name}.mp4' #<track>-<car>-<best-lap>-<time>
         print(f"Nname - {nname}")
+        print(f"Move {Config_settings.obs_output_path}/{name} > {Config_settings.motec_path}/{nname}")
         
-        try:
-            print(f"Move {Config_settings.obs_output_path + name} > {Config_settings.motec_path + nname}")
-            shutil.move(Config_settings.obs_output_path + name, Config_settings.motec_path + nname)
+        
+        
+
+        try:  # OBS can have file open for sec
+            shutil.move(f"{Config_settings.obs_output_path}/{name}", f"{Config_settings.motec_path}/{nname}")
         except Exception as e:
             print("Can´t move file.")
             print(e)
-            exit()
+            
+        print("Waiting to move file...")
+        
+        max_OBS_wait_time = 10
+        
+        start = time.time()
+
+        while time.time() < start + max_OBS_wait_time:
+            time.sleep(0.3)
+            
+            try:
+                shutil.move(f"{Config_settings.obs_output_path}/{name}", f"{Config_settings.motec_path}/{nname}")
+                print(f"File moved!!!")
+                return
+            except Exception as e:
+                print(f"Trying to move file... Time: {(time.time() - start)} / {max_OBS_wait_time}s")
+
+        
+        print("Moving file failed...") 
+        print(f"Waiting {(time.time() - start)} / max{max_OBS_wait_time}s")
+        
+        print(f"Name: {name}, Nname: {nname}")
+        print()
+        
+        print(f"Whole path: {Config_settings.obs_output_path}/{name} > {Config_settings.motec_path}/{nname}")
+        print("Stoping script...")
+        exit()
+
+
+
+
     else:
         print("Fname do not exist.")
-        print(Config_settings.obs_output_path + name)
+        print(f"{Config_settings.obs_output_path}/{name}")
         print(os.listdir(Config_settings.obs_output_path))
         exit()
 
@@ -74,7 +207,8 @@ def check_recording_matching(client, recording, Config_settings, attemps=0):
         if attemps <= 3: # If it´s not more than 3 attemps. To not loop script.
             print("Trying to start recording...")
             start_recording(client) # Trying to start recording
-            return check_recording_matching(client, recording, attemps=attemps+1)
+            time.sleep(0.1*attemps)
+            return check_recording_matching(client, recording, Config_settings, attemps=attemps+1)
         else: # After 3 attemps just exit script...
             print("After 3 atemps. Stoping script...")
             print("Recording var still does not match real OBS status.")
@@ -89,7 +223,8 @@ def check_recording_matching(client, recording, Config_settings, attemps=0):
         if attemps <= 3: # If it´s not more than 3 attemps. To not loop script.
             print("Trying to stop recording...")
             stop_recording_and_rename(client, Config_settings) # Try to stop recording
-            return check_recording_matching(client, recording, attemps=attemps+1)
+            time.sleep(0.1*attemps)
+            return check_recording_matching(client, recording, Config_settings, attemps=attemps+1)
         else: # After 3 attemps just exit script...
             print("After 3 atemps. Stoping script...")
             print("Recording var still does not match real OBS status.")
@@ -106,7 +241,8 @@ def check_recording_matching(client, recording, Config_settings, attemps=0):
             print("Trying to start and pause recording...")
             start_recording(client) # Trying to start recording
             pause_recording(client, recording)  # Trying to pause recording
-            return check_recording_matching(client, recording, attemps=attemps+1)
+            time.sleep(0.1*attemps)
+            return check_recording_matching(client, recording, Config_settings, attemps=attemps+1)
         else: # After 3 attemps just exit script...
             print("After 3 atemps. Stoping script...")
             print("Recording var still does not match real OBS status.")
@@ -123,7 +259,8 @@ def check_recording_matching(client, recording, Config_settings, attemps=0):
         if attemps <= 3: # If it´s not more than 3 attemps. To not loop script.
             print("Trying to pause recording...")
             pause_recording(client, recording)  # Trying to pause recording
-            return check_recording_matching(client, recording, attemps=attemps+1)
+            time.sleep(0.1*attemps)
+            return check_recording_matching(client, recording, Config_settings, attemps=attemps+1)
         else: # After 3 attemps just exit script...
             print("After 3 atemps. Stoping script...")
             print("Recording var still does not match real OBS status.")
@@ -139,7 +276,8 @@ def check_recording_matching(client, recording, Config_settings, attemps=0):
         if attemps <= 3: # If it´s not more than 3 attemps. To not loop script.
             print("Trying to pause recording...")
             pause_recording(client, recording)  # Trying to pause recording
-            return check_recording_matching(client, recording, attemps=attemps+1)
+            time.sleep(0.1*attemps)
+            return check_recording_matching(client, recording, Config_settings, attemps=attemps+1)
         else: # After 3 attemps just exit script...
             print("After 3 atemps. Stoping script...")
             print("Recording var still does not match real OBS status.")
@@ -154,7 +292,8 @@ def check_recording_matching(client, recording, Config_settings, attemps=0):
         if attemps <= 3: # If it´s not more than 3 attemps. To not loop script.
             print("Trying to unpause recording...")
             unpause_recording(client, recording)  # Trying to unpause recording
-            return check_recording_matching(client, recording, attemps=attemps+1)
+            time.sleep(0.1*attemps)
+            return check_recording_matching(client, recording, Config_settings, attemps=attemps+1)
         else: # After 3 attemps just exit script...
             print("After 3 atemps. Stoping script...")
             print("Recording var still does not match real OBS status.")

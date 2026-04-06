@@ -221,6 +221,8 @@ if __name__ == "__main__":
     
     print(f"Current Time: {info.graphics.iCurrentTime}")
     
+    print(f"Best lap: {info.graphics.bestTime}")
+    
     print(f"Track: {info.static.track}")
     
     print(f"Car model: {info.static.carModel}")
