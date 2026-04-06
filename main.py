@@ -4,7 +4,7 @@ from imports import read_data_from_shared_memory
 from obsws_python import ReqClient
 import psutil, datetime, time
 
-from imports import stop_recording_and_rename, check_recording_matching, start_recording, check_OBS_ready
+from imports import stop_recording_and_rename, check_recording_matching, start_recording, check_OBS_ready, pause_recording, unpause_recording
 
 
 global Config_settings
@@ -36,6 +36,7 @@ if not "obs64.exe" in (i.name() for i in psutil.process_iter()): #If OBS is not 
         
         print(f"Waiting to OBS open max {max_wating_time_to_obs}s...")
         start = time.time()
+        
         while not "obs64.exe" in (i.name() for i in psutil.process_iter()):
             time.sleep(0.5)
             
@@ -67,9 +68,9 @@ print("OBS is ready to use.")
 
 
 
-def event(last_state): # return if OBS should be recording
+def event(last_state, last_current_time): # return if OBS should be recording
     info = get_shared_mem()
-    
+    print(f"Time: {info.graphics.iCurrentTime}, Last time: {last_current_time}, Curr game status: {info.graphics.status}, Last game status: {last_state}")
     
     if info.graphics.status != 2: # If game is not live
         if info.graphics.status == 0:
@@ -85,26 +86,30 @@ def event(last_state): # return if OBS should be recording
                 print("Game is pause...")
             time.sleep(0.1)
                 
-        return False, info.graphics.status # Return that OBS should not be recording
+        return False, info.graphics.status, None # Return that OBS should not be recording
 
 
     if last_state != 2:
         print("Game is running...")
-            
+
     
-                        
+
         
     
     
     current_time = info.graphics.iCurrentTime # Get AC or ACC time i in front mean in miliseconds. So it not 0:00.123 but 123. It´s better working with.
     
-    if current_time == "-:--.---": # AC or ACC will return this time when session doesn´t started yet. If ses does not stared we dont want to recording.
-        return False, info.graphics.status # So we will return False
-    elif not (current_time).isdigit(): # Just test. Because I dont know what will actually game return.
-        print(f"Not digit - {current_time}")
-        return False, info.graphics.status
     
-    return True, info.graphics.status # There we can just return True because here we want to recording.
+    if current_time == "-:--.---" or current_time == None or last_current_time == None or last_current_time == current_time: # AC or ACC will return this time when session doesn´t started yet. If ses does not stared we dont want to recording.
+        if current_time != None and last_current_time != current_time:
+            print("Session does not started...")
+        return False, info.graphics.status, current_time # So we will return False
+    
+    else:
+        if last_current_time == None or last_current_time == "-:--.---" or current_time == last_current_time:
+            print("Session just started...")
+    
+    return True, info.graphics.status, current_time  # There we can just return True because here we want to recording.
 
 
 
@@ -113,21 +118,48 @@ def event(last_state): # return if OBS should be recording
 def run():
     global Config_settings, client
     last_config_update = time.time()
+    last_current_time = None
+    
     last_state = None
     loop = True
     
-    recording = False
+    recording = False # False - not recording, True - recording, None - recording is pause
     
     
     while loop:
-        b, last_state = event(last_state)
+        b, last_state, last_current_time = event(last_state, last_current_time)
+        print(f"B: {b}")
         if b:
-           if not recording:
-                start_recording()
+            if recording == False:
+                start_recording(client)
+                recording = True
+                
+            if recording == None:
+                unpause_recording(client, recording)
+                recording = True
                 
         else:
-            if recording:
-                stop_recording_and_rename(client, Config_settings)
+            if recording == True:
+                if last_state == 0:
+                    print("Game is not running...")
+                    stop_recording_and_rename(client, Config_settings)
+                    recording = False
+                    
+                if last_state == 1:
+                    print("Game is in replay pausing recording...")
+                    pause_recording(client, recording)
+                    recording = None # None - pause
+                
+                if last_state == 2:
+                    print("Game is running. But maybe session does not started yet. Stoping and saving record...")
+                    stop_recording_and_rename(client, Config_settings)
+                    recording = False
+                    
+                if last_state == 3:
+                    print("Game is pause. Pausing recording...")
+                    pause_recording(client, recording)
+                    recording = None # None - pause
+                    
 
 
 
