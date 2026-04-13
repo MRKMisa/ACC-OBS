@@ -211,3 +211,11 @@ __marimo__/
 zks/
 zk*.py
 structure.py
+test.py
+
+*.log
+
+.vscode
+
+# Temporarily
+.gitignore
