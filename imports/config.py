@@ -87,6 +87,11 @@ def get_config_file(Last_Config_settings=None):
                 if obs_port == "" or obs_port == None:
                     obs_port = "4455" #Default port
                     if not update_mode: print_log("OBS port set on default (4455)")
+                
+                else:
+                    if not str(obs_port).isdigit():
+                        if not update_mode: print_log(f"Invalid OBS port in config: {obs_port}. OBS port set on default (4455)")
+                        obs_port = "4455" #Default port
                     
             except Exception as e:
                 error_log("Can´t get OBS port from config.ini file...")
@@ -184,6 +189,11 @@ def get_config_file(Last_Config_settings=None):
                 if loop_delay == "" or loop_delay == None:
                     loop_delay = 0.1 #Default delay
                     if not update_mode: print_log("Script loop delay set on default (0.1s)")
+                    
+                else:
+                    if not str(loop_delay).replace(".", "").isdigit():
+                        if not update_mode: print_log(f"Invalid script loop delay in config: {loop_delay}. Script loop delay set on default (0.1s)")
+                        loop_delay = 0.1 #Default delay
                     
             except Exception as e:
                 error_log("Can´t get Script loop delay from config.ini file...")
