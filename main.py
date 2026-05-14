@@ -15,25 +15,29 @@ from imports import set_logging, write_log, log_config_setting, print_log, error
 
 ##### Maybe I should try return False if last time is greather than live!!!!!!
 def event(info, last_state, last_current_time): # return if OBS should be recording
-    #print(f"Event def: Time: {info.graphics.iCurrentTime}, Last time: {last_current_time}, Curr game status: {info.graphics.status}, Last game status: {last_state}")
-    cycle_log(f"Event def: Time: {info.graphics.iCurrentTime}, Last time: {last_current_time}, Curr game status: {info.graphics.status}, Last game status: {last_state}\n")
+    status = info.graphics.status
+    current_time = info.graphics.iCurrentTime # Get AC or ACC time i in front mean in miliseconds. So it not 0:00.123 but 123. It´s better working with.
     
     
-    if info.graphics.status != 2: # If game is not live
-        if info.graphics.status == 0:
+    #print(f"Event def: Time: {current_time}, Last time: {last_current_time}, Curr game status: {status}, Last game status: {last_state}")
+    cycle_log(f"Event def: Time: {current_time}, Last time: {last_current_time}, Curr game status: {status}, Last game status: {last_state}\n")
+    
+    
+    if status != 2: # If game is not live
+        if status == 0:
             if last_state != 0:
                 print_log("Game is not running...")
             time.sleep(0.5)
-        elif info.graphics.status == 1:
+        elif status == 1:
             if last_state != 1:
                 print_log("Game is in replay...")
             time.sleep(0.3)
-        elif info.graphics.status == 3:
+        elif status == 3:
             if last_state != 3:
                 print_log("Game is pause...")
             time.sleep(0.1)
                 
-        return False, info.graphics.status, None # Return that OBS should not be recording
+        return False, status, None # Return that OBS should not be recording
 
 
     if last_state != 2:
@@ -44,18 +48,15 @@ def event(info, last_state, last_current_time): # return if OBS should be record
         
     
     
-    current_time = info.graphics.iCurrentTime # Get AC or ACC time i in front mean in miliseconds. So it not 0:00.123 but 123. It´s better working with.
-    
-    
-    if current_time == "-:--.---" or current_time == None or last_current_time == None or last_current_time == current_time: # AC or ACC will return this time when session doesn´t started yet. If ses does not stared we dont want to recording.
+    if current_time == "-:--.---" or current_time == None or last_current_time == current_time: # AC or ACC will return this time when session doesn´t started yet. If ses does not stared we dont want to recording.
         if current_time != None and last_current_time != current_time:
             print_log("Session does not started...")
-        return False, info.graphics.status, current_time # So we will return False
+        return False, status, current_time # So we will return False
     
     else:
         pass
     
-    return True, info.graphics.status, current_time  # There we can just return True because here we want to recording.
+    return True, status, current_time  # There we can just return True because here we want to recording.
 
 
 
@@ -89,7 +90,7 @@ def run():
         
         
         
-        if bs >= 3: # Should be recording
+        if bs >= 2: # Should be recording
             if recording == False: # But if it´s not recording
                 start_recording(client) # Start recording
                 recording = True
@@ -100,7 +101,7 @@ def run():
                 unpause_recording(client, recording) # unpause
                 recording = True
                 
-        elif bs <= -4: # Should not be recording
+        elif bs <= -3: # Should not be recording
             if recording == True:  # But if it´s recording
                 if last_state == 0: # If game is not running
                     print_log("Game is not running...")
@@ -147,7 +148,7 @@ def run():
         if not check_recording_matching(client, recording, Config_settings): exit() # Check if recording var match real OBS status
         
 if __name__ == "__main__":
-    script_logging = 3 # 0 - no logging, 1 - just error logging, 2 - errors and prints logging, 3 - errors, prints and cycle logging
+    script_logging = 2 # 0 - no logging, 1 - just error logging, 2 - errors and prints logging, 3 - errors, prints and cycle logging
     set_logging(script_logging)
     
     

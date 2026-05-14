@@ -217,5 +217,7 @@ test.py
 
 .vscode
 
+desktop.ini
+
 # Temporarily
 .gitignore

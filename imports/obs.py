@@ -85,9 +85,9 @@ def stop_recording_and_rename(client, Config_settings):
                         
                     
                     # Check if file match saved files date
-                    my_date = datetime.datetime.strptime(file_name.replace(".mp4"), "%Y-%m-%d_%H-%M-%S")
+                    my_date = datetime.datetime.strptime(file_name.replace(".mp4", ""), "%Y-%m-%d_%H-%M-%S")
                     
-                    last_video_date = datetime.datetime.strptime(last_video.replace(".mp4"), "%Y-%m-%d_%H-%M-%S")
+                    last_video_date = datetime.datetime.strptime(last_video.replace(".mp4", ""), "%Y-%m-%d_%H-%M-%S")
                     
                     diff = my_date - last_video_date
                     
@@ -113,7 +113,7 @@ def stop_recording_and_rename(client, Config_settings):
         print_log("Name exist.")
         info = get_shared_mem()
         
-        nname = f'{info.static.track}-{info.static.carModel}-{info.graphics.bestTime}{file_name}.mp4' #<track>-<car>-<best-lap>-<time>
+        nname = f'{info.static.track}-{info.static.carModel}-{str(info.graphics.bestTime).replace(":", ".")}-{file_name}' #<track>-<car>-<best-lap>-<time>
         print_log(f"Nname - {nname}")
         print_log(f"Move {Config_settings.obs_output_path}/{file_name} > {Config_settings.motec_path}/{nname}")
         
@@ -335,13 +335,11 @@ def check_OBS_ready(client):
 if __name__ == "__main__":
     
     
-    exit()
     #Get obs_app_path from config.ini
     from imports import get_config_file
     
     
     Config_settings = get_config_file()
     #cwd=r"C:\Program Files\obs-studio\bin\64bit"
-    
     
     start_obs(Config_settings.obs_app_path)

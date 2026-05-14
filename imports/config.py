@@ -134,7 +134,7 @@ def get_config_file(Last_Config_settings=None):
                     print_log("Can´t find obs_output_path in config.ini...")
                 
                 if obs_output_path == "" or obs_output_path == None:
-                    obs_output_path = os.path.expanduser("~/Videos") #Default path
+                    obs_output_path = os.path.expanduser("~\Videos") #Default path
                     if not update_mode: print_log("OBS output path set on default (user videos folder)")
                     
             except Exception as e:
@@ -223,7 +223,7 @@ def get_config_file(Last_Config_settings=None):
         
         
         #OBS output path to default
-        obs_output_path = os.path.expanduser("~/Videos") #Default path
+        obs_output_path = os.path.expanduser("~\Videos") #Default path
         error_log("OBS output path set on default (user videos folder).")
         
         
