@@ -15,7 +15,7 @@ from imports import set_logging, write_log, log_config_setting, print_log, error
 
 ##### Maybe I should try return False if last time is greather than live!!!!!!
 def event(info, last_state, last_current_time): # return if OBS should be recording
-    status = info.graphics.status
+    status = info.graphics.status # Get AC or ACC status. 0 = not running, 1 = replay, 2 = live, 3 = pause
     current_time = info.graphics.iCurrentTime # Get AC or ACC time i in front mean in miliseconds. So it not 0:00.123 but 123. It´s better working with.
     
     

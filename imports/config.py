@@ -190,8 +190,38 @@ def get_config_file(Last_Config_settings=None):
                 error_log(e)
                 error_log("Exiting script...")
                 exit()
+              
+              
+              
                 
+            #Script logging
+            try:
+                #Is logging conf in file?
+                logging = None
+                for line in config:
+                    if "logging" in line:
+                        logging = line.split("=")[1].strip()
+                        
+                        
                     
+                if logging == None:
+                    print_log("Can´t find logging in config.ini...")
+                
+                if logging == "" or logging == None:
+                    logging = 2 #Default delay
+                    if not update_mode: print_log("Logging set on default (2)")
+                    
+                else:
+                    if logging != 0 or logging != 1 or logging != 2 or logging != 3:
+                        if not update_mode: print_log(f"Invalid logging in config: {logging}. Logging set on default (2)")
+                        logging = 2 #Default delay
+                    
+            except Exception as e:
+                error_log("Can´t get logging from config.ini file...")
+                error_log(e)
+                error_log("Exiting script...")
+                exit()
+                        
                 
     if not os.path.exists("config.ini") or config == None or config == "": # If file is not exist or if it´s failed to open or if it´s empty...
         if update_mode: #If script can´t find config.ini it´s useless to update config setting because it will be default. So we will just return old settings.
@@ -236,6 +266,10 @@ def get_config_file(Last_Config_settings=None):
         loop_delay = 0.1
         error_log("Script loop delay set on default. (0.1s)")
         
+        #Logging
+        logging = 2
+        error_log("Logging set on default (2)")
+        
 
     class Config_settings:
         def __init__(self):
@@ -247,6 +281,7 @@ def get_config_file(Last_Config_settings=None):
             self.motec_path = motec_path
             
             self.loop_delay = loop_delay
+            self.logging = logging
     
     
     #Tell what changed...
@@ -259,7 +294,8 @@ def get_config_file(Last_Config_settings=None):
         if Last_Config_settings.motec_path != Config_settings().motec_path: print_log(f"Config change saved. Motec path: {Last_Config_settings.motec_path} >> {Config_settings().motec_path}")
         
         if Last_Config_settings.loop_delay != Config_settings().loop_delay: print_log(f"Config change saved. Script loop delay: {Last_Config_settings.loop_delay} >> {Config_settings().loop_delay}")
-        
+        if Last_Config_settings.logging != Config_settings().logging: print_log(f"Config change saved. Logging: {Last_Config_settings.logging} >> {Config_settings().logging}")
+
         
     return Config_settings()
 
@@ -273,6 +309,7 @@ def print_from_config_class(Config_settings):
     print("Motec path: " + Config_settings.motec_path)
     
     print("Script loop delay: " + Config_settings.loop_delay)
+    print("Logging: " + Config_settings.logging)
     
     
     

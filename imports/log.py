@@ -118,6 +118,8 @@ def log_config_setting(Config_settings):
         
         write_log("Script loop delay: " + Config_settings.loop_delay)
         
+        write_log("Logging: " + Config_settings.logging)
+        
         
         
         write_log("\n")
