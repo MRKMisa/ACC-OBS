@@ -319,7 +319,7 @@ def print_from_config_class(Config_settings):
     print("Motec path: " + Config_settings.motec_path)
     
     print("Script loop delay: " + Config_settings.loop_delay)
-    print("Logging: " + Config_settings.logging)
+    print(f"Logging: {Config_settings.logging}")
     
     
     

@@ -1,0 +1,699 @@
+Logging set to errors, basics prints and cycles prints...
+Loading config.ini file...
+Loaded config.ini file.
+OBS app path set on default (C:\Program Files\obs-studio\bin\64bit)
+OBS output path set on default (user videos folder)
+Motec path set on default (C:/MoTeC/Videos)
+
+---Config settings---
+OBS pwd: AkE5MGKgeBRAF3ti
+OBS port: 4455
+OBS app path: C:\Program Files\obs-studio\bin\64bit
+OBS output path: C:\Users\pocitac/Videos
+Motec path: C:/MoTeC/Videos
+Script loop delay: 0.07
+
+OBS is open.
+
+Connecting to OBS...
+Connected to OBS.
+
+Checking if OBS is ready...
+OBS is ready to use.
+
+
+Event def: Time: 13406, Last time: None, Curr game status: 2, Last game status: None
+
+Game is running...
+B: True, Bs: 0
+Event def: Time: 13476, Last time: 13406, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 1
+Starting recording...
+Recording started.
+Recording var does not match real OBS status...
+Recording: True, OBS status: False
+Atempt: 0
+Trying to start recording...
+Starting recording...
+Recording started.
+Recording var does not match real OBS status...
+Recording: True, OBS status: False
+Atempt: 1
+Trying to start recording...
+Starting recording...
+Recording started.
+Event def: Time: 13658, Last time: 13476, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 2
+Event def: Time: 13736, Last time: 13658, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 3
+Event def: Time: 13811, Last time: 13736, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 4
+Event def: Time: 13888, Last time: 13811, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 5
+Event def: Time: 13966, Last time: 13888, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 6
+Event def: Time: 14038, Last time: 13966, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 7
+Event def: Time: 14098, Last time: 14038, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 8
+Event def: Time: 14173, Last time: 14098, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 9
+Event def: Time: 14248, Last time: 14173, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 10
+Event def: Time: 14323, Last time: 14248, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 11
+Event def: Time: 14398, Last time: 14323, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 12
+Event def: Time: 14473, Last time: 14398, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 13
+Event def: Time: 14546, Last time: 14473, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 14
+Event def: Time: 14623, Last time: 14546, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 15
+Event def: Time: 14698, Last time: 14623, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 16
+Event def: Time: 14756, Last time: 14698, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 17
+Event def: Time: 14843, Last time: 14756, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 18
+Event def: Time: 14906, Last time: 14843, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 19
+Event def: Time: 14978, Last time: 14906, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 20
+Event def: Time: 15053, Last time: 14978, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 21
+Event def: Time: 15128, Last time: 15053, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 22
+Event def: Time: 15201, Last time: 15128, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 23
+Event def: Time: 15278, Last time: 15201, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 24
+Event def: Time: 15351, Last time: 15278, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 25
+Event def: Time: 15428, Last time: 15351, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 26
+Event def: Time: 15501, Last time: 15428, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 27
+Event def: Time: 15563, Last time: 15501, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 28
+Event def: Time: 15641, Last time: 15563, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 29
+Event def: Time: 15716, Last time: 15641, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 30
+Event def: Time: 15796, Last time: 15716, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 31
+Event def: Time: 15858, Last time: 15796, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 32
+Event def: Time: 15936, Last time: 15858, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 33
+Event def: Time: 15958, Last time: 15936, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 34
+Event def: Time: 15958, Last time: 15958, Curr game status: 2, Last game status: 2
+
+B: False, Bs: 35
+Event def: Time: 16158, Last time: 15958, Curr game status: 2, Last game status: 2
+
+B: True, Bs: -1
+Event def: Time: 16218, Last time: 16158, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 1
+Event def: Time: 16308, Last time: 16218, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 2
+Event def: Time: 16376, Last time: 16308, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 3
+Event def: Time: 16448, Last time: 16376, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 4
+Event def: Time: 16518, Last time: 16448, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 5
+Event def: Time: 16593, Last time: 16518, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 6
+Event def: Time: 16671, Last time: 16593, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 7
+Event def: Time: 16746, Last time: 16671, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 8
+Event def: Time: 16816, Last time: 16746, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 9
+Event def: Time: 16883, Last time: 16816, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 10
+Event def: Time: 16961, Last time: 16883, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 11
+Event def: Time: 17041, Last time: 16961, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 12
+Event def: Time: 17113, Last time: 17041, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 13
+Event def: Time: 17186, Last time: 17113, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 14
+Event def: Time: 17258, Last time: 17186, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 15
+Event def: Time: 17331, Last time: 17258, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 16
+Event def: Time: 17403, Last time: 17331, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 17
+Event def: Time: 17476, Last time: 17403, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 18
+Event def: Time: 17551, Last time: 17476, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 19
+Event def: Time: 17613, Last time: 17551, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 20
+Event def: Time: 17691, Last time: 17613, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 21
+Event def: Time: 17763, Last time: 17691, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 22
+Event def: Time: 17838, Last time: 17763, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 23
+Event def: Time: 17908, Last time: 17838, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 24
+Event def: Time: 17981, Last time: 17908, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 25
+Event def: Time: 18063, Last time: 17981, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 26
+Event def: Time: 18136, Last time: 18063, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 27
+Event def: Time: 18208, Last time: 18136, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 28
+Event def: Time: 18291, Last time: 18208, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 29
+Event def: Time: 18368, Last time: 18291, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 30
+Event def: Time: 18433, Last time: 18368, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 31
+Event def: Time: 18513, Last time: 18433, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 32
+Event def: Time: 18591, Last time: 18513, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 33
+Event def: Time: 18656, Last time: 18591, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 34
+Event def: Time: 18731, Last time: 18656, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 35
+Event def: Time: 18808, Last time: 18731, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 36
+Event def: Time: 18883, Last time: 18808, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 37
+Event def: Time: 18946, Last time: 18883, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 38
+Event def: Time: 19023, Last time: 18946, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 39
+Event def: Time: 19098, Last time: 19023, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 40
+Event def: Time: 19173, Last time: 19098, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 41
+Event def: Time: 19248, Last time: 19173, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 42
+Event def: Time: 19311, Last time: 19248, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 43
+Event def: Time: 19311, Last time: 19311, Curr game status: 3, Last game status: 2
+
+Game is pause...
+B: False, Bs: 44
+Event def: Time: 19311, Last time: None, Curr game status: 3, Last game status: 3
+
+B: False, Bs: -1
+Event def: Time: 19311, Last time: None, Curr game status: 3, Last game status: 3
+
+B: False, Bs: -2
+Game is pause. Pausing recording...
+Pausing record...
+Record pause...
+Event def: Time: 19311, Last time: None, Curr game status: 3, Last game status: 3
+
+B: False, Bs: -3
+Event def: Time: 19311, Last time: None, Curr game status: 3, Last game status: 3
+
+B: False, Bs: -4
+Event def: Time: 19311, Last time: None, Curr game status: 3, Last game status: 3
+
+B: False, Bs: -5
+Event def: Time: 19311, Last time: None, Curr game status: 3, Last game status: 3
+
+B: False, Bs: -6
+Event def: Time: 19311, Last time: None, Curr game status: 3, Last game status: 3
+
+B: False, Bs: -7
+Event def: Time: 19311, Last time: None, Curr game status: 3, Last game status: 3
+
+B: False, Bs: -8
+Event def: Time: 19311, Last time: None, Curr game status: 3, Last game status: 3
+
+B: False, Bs: -9
+Event def: Time: 19311, Last time: None, Curr game status: 3, Last game status: 3
+
+B: False, Bs: -10
+Event def: Time: 19311, Last time: None, Curr game status: 3, Last game status: 3
+
+B: False, Bs: -11
+Event def: Time: 19311, Last time: None, Curr game status: 3, Last game status: 3
+
+B: False, Bs: -12
+Event def: Time: 19311, Last time: None, Curr game status: 3, Last game status: 3
+
+B: False, Bs: -13
+Event def: Time: 19311, Last time: None, Curr game status: 3, Last game status: 3
+
+B: False, Bs: -14
+Event def: Time: 19311, Last time: None, Curr game status: 3, Last game status: 3
+
+B: False, Bs: -15
+Event def: Time: 19311, Last time: None, Curr game status: 3, Last game status: 3
+
+B: False, Bs: -16
+Event def: Time: 19311, Last time: None, Curr game status: 3, Last game status: 3
+
+B: False, Bs: -17
+Event def: Time: 19311, Last time: None, Curr game status: 3, Last game status: 3
+
+B: False, Bs: -18
+Event def: Time: 19311, Last time: None, Curr game status: 3, Last game status: 3
+
+B: False, Bs: -19
+Event def: Time: 19523, Last time: None, Curr game status: 2, Last game status: 3
+
+Game is running...
+B: True, Bs: -20
+Event def: Time: 19598, Last time: 19523, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 1
+Unpausing record...
+Record running...
+Event def: Time: 19671, Last time: 19598, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 2
+Event def: Time: 19743, Last time: 19671, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 3
+Event def: Time: 19821, Last time: 19743, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 4
+Event def: Time: 19891, Last time: 19821, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 5
+Event def: Time: 19966, Last time: 19891, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 6
+Event def: Time: 20038, Last time: 19966, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 7
+Event def: Time: 20111, Last time: 20038, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 8
+Event def: Time: 20186, Last time: 20111, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 9
+Event def: Time: 20258, Last time: 20186, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 10
+Event def: Time: 20331, Last time: 20258, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 11
+Event def: Time: 20403, Last time: 20331, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 12
+Event def: Time: 20476, Last time: 20403, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 13
+Event def: Time: 20548, Last time: 20476, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 14
+Event def: Time: 20621, Last time: 20548, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 15
+Event def: Time: 20693, Last time: 20621, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 16
+Event def: Time: 20766, Last time: 20693, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 17
+Event def: Time: 20838, Last time: 20766, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 18
+Event def: Time: 20911, Last time: 20838, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 19
+Event def: Time: 20983, Last time: 20911, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 20
+Event def: Time: 21056, Last time: 20983, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 21
+Event def: Time: 21141, Last time: 21056, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 22
+Event def: Time: 21213, Last time: 21141, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 23
+Event def: Time: 21286, Last time: 21213, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 24
+Event def: Time: 21356, Last time: 21286, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 25
+Event def: Time: 21428, Last time: 21356, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 26
+Event def: Time: 21501, Last time: 21428, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 27
+Event def: Time: 21573, Last time: 21501, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 28
+Event def: Time: 21646, Last time: 21573, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 29
+Event def: Time: 21718, Last time: 21646, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 30
+Event def: Time: 21791, Last time: 21718, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 31
+Event def: Time: 21863, Last time: 21791, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 32
+Event def: Time: 21933, Last time: 21863, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 33
+Event def: Time: 22006, Last time: 21933, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 34
+Event def: Time: 22078, Last time: 22006, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 35
+Event def: Time: 22151, Last time: 22078, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 36
+Event def: Time: 22223, Last time: 22151, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 37
+Event def: Time: 22296, Last time: 22223, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 38
+Event def: Time: 22368, Last time: 22296, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 39
+Event def: Time: 22453, Last time: 22368, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 40
+Event def: Time: 22523, Last time: 22453, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 41
+Event def: Time: 22596, Last time: 22523, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 42
+Event def: Time: 22668, Last time: 22596, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 43
+Event def: Time: 22738, Last time: 22668, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 44
+Event def: Time: 22811, Last time: 22738, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 45
+Event def: Time: 22883, Last time: 22811, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 46
+Event def: Time: 22956, Last time: 22883, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 47
+Event def: Time: 23028, Last time: 22956, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 48
+Event def: Time: 23098, Last time: 23028, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 49
+Event def: Time: 23183, Last time: 23098, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 50
+Event def: Time: 23256, Last time: 23183, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 51
+Event def: Time: 23326, Last time: 23256, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 52
+Event def: Time: 23398, Last time: 23326, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 53
+Event def: Time: 23471, Last time: 23398, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 54
+Event def: Time: 23543, Last time: 23471, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 55
+Event def: Time: 23618, Last time: 23543, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 56
+Event def: Time: 23618, Last time: 23618, Curr game status: 3, Last game status: 2
+
+Game is pause...
+B: False, Bs: 57
+Event def: Time: 23618, Last time: None, Curr game status: 3, Last game status: 3
+
+B: False, Bs: -1
+Event def: Time: 23618, Last time: None, Curr game status: 3, Last game status: 3
+
+B: False, Bs: -2
+Game is pause. Pausing recording...
+Pausing record...
+Record pause...
+Event def: Time: 23618, Last time: None, Curr game status: 3, Last game status: 3
+
+B: False, Bs: -3
+Event def: Time: 23618, Last time: None, Curr game status: 3, Last game status: 3
+
+B: False, Bs: -4
+Event def: Time: 23618, Last time: None, Curr game status: 3, Last game status: 3
+
+B: False, Bs: -5
+Event def: Time: 23618, Last time: None, Curr game status: 3, Last game status: 3
+
+B: False, Bs: -6
+Event def: Time: 23618, Last time: None, Curr game status: 3, Last game status: 3
+
+B: False, Bs: -7
+Event def: Time: 23618, Last time: None, Curr game status: 3, Last game status: 3
+
+B: False, Bs: -8
+Event def: Time: 23618, Last time: None, Curr game status: 3, Last game status: 3
+
+B: False, Bs: -9
+Event def: Time: 23618, Last time: None, Curr game status: 3, Last game status: 3
+
+B: False, Bs: -10
+Event def: Time: 23618, Last time: None, Curr game status: 3, Last game status: 3
+
+B: False, Bs: -11
+Event def: Time: 23618, Last time: None, Curr game status: 3, Last game status: 3
+
+B: False, Bs: -12
+Event def: Time: 23618, Last time: None, Curr game status: 3, Last game status: 3
+
+B: False, Bs: -13
+Event def: Time: 23618, Last time: None, Curr game status: 3, Last game status: 3
+
+B: False, Bs: -14
+Event def: Time: 23618, Last time: None, Curr game status: 3, Last game status: 3
+
+B: False, Bs: -15
+Event def: Time: 23618, Last time: None, Curr game status: 3, Last game status: 3
+
+B: False, Bs: -16
+Event def: Time: 23618, Last time: None, Curr game status: 3, Last game status: 3
+
+B: False, Bs: -17
+Event def: Time: 23618, Last time: None, Curr game status: 3, Last game status: 3
+
+B: False, Bs: -18
+Event def: Time: 23733, Last time: None, Curr game status: 2, Last game status: 3
+
+Game is running...
+B: True, Bs: -19
+Event def: Time: 23806, Last time: 23733, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 1
+Unpausing record...
+Record running...
+Event def: Time: 23888, Last time: 23806, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 2
+Event def: Time: 23958, Last time: 23888, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 3
+Event def: Time: 24028, Last time: 23958, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 4
+Event def: Time: 24111, Last time: 24028, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 5
+Event def: Time: 24178, Last time: 24111, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 6
+Event def: Time: 24248, Last time: 24178, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 7
+Event def: Time: 24328, Last time: 24248, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 8
+Event def: Time: 24398, Last time: 24328, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 9
+Event def: Time: 24466, Last time: 24398, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 10
+Event def: Time: 24546, Last time: 24466, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 11
+Event def: Time: 24613, Last time: 24546, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 12
+Event def: Time: 24691, Last time: 24613, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 13
+Event def: Time: 24758, Last time: 24691, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 14
+Event def: Time: 24836, Last time: 24758, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 15
+Event def: Time: 24913, Last time: 24836, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 16
+Event def: Time: 24981, Last time: 24913, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 17
+Event def: Time: 25058, Last time: 24981, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 18
+Event def: Time: 25128, Last time: 25058, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 19
+Event def: Time: 0, Last time: 25128, Curr game status: 2, Last game status: 2
+
+B: True, Bs: 20
+Event def: Time: 0, Last time: 0, Curr game status: 2, Last game status: 2
+
+B: False, Bs: 21
+Event def: Time: 0, Last time: 0, Curr game status: 2, Last game status: 2
+
+B: False, Bs: -1
+Event def: Time: 0, Last time: 0, Curr game status: 2, Last game status: 2
+
+B: False, Bs: -2
+Game is running. But maybe session does not started yet. Stoping and saving record...
+Recording stoped. Renaming file.
+Fname - 2026-05-09_19-23-58.mp4
+File name is saved.
+Name exist.
+Nname - Spa-ferrari_296_gt3-35791:23:6472026-05-09_19-23-58.mp4.mp4
+Move C:\Users\pocitac/Videos/2026-05-09_19-23-58.mp4 > C:/MoTeC/Videos/Spa-ferrari_296_gt3-35791:23:6472026-05-09_19-23-58.mp4.mp4
+Can´t move file!!!
+Waiting to move file...
+Trying to move file... Time: 0.30155253410339355 / 10s
+Trying to move file... Time: 0.6031057834625244 / 10s
+Trying to move file... Time: 0.9046576023101807 / 10s
+Trying to move file... Time: 1.2067110538482666 / 10s
+Trying to move file... Time: 1.508263349533081 / 10s
+Trying to move file... Time: 1.8098158836364746 / 10s
+Trying to move file... Time: 2.1118688583374023 / 10s
+Trying to move file... Time: 2.413421154022217 / 10s
+Trying to move file... Time: 2.7149739265441895 / 10s
+Trying to move file... Time: 3.016526460647583 / 10s
+Trying to move file... Time: 3.318579912185669 / 10s
+Trying to move file... Time: 3.6201324462890625 / 10s
+Trying to move file... Time: 3.921684980392456 / 10s
+Trying to move file... Time: 4.223237752914429 / 10s
+Trying to move file... Time: 4.5252907276153564 / 10s
+Trying to move file... Time: 4.826843500137329 / 10s
+Trying to move file... Time: 5.128896713256836 / 10s
+Trying to move file... Time: 5.430448532104492 / 10s
+Trying to move file... Time: 5.732001543045044 / 10s
+Trying to move file... Time: 6.033554792404175 / 10s
+Trying to move file... Time: 6.335107088088989 / 10s
+Trying to move file... Time: 6.636660575866699 / 10s
+Trying to move file... Time: 6.938212871551514 / 10s
+Trying to move file... Time: 7.240265607833862 / 10s
+Trying to move file... Time: 7.541818380355835 / 10s
+Trying to move file... Time: 7.8433709144592285 / 10s
+Trying to move file... Time: 8.144922971725464 / 10s
+Trying to move file... Time: 8.446976900100708 / 10s
+Trying to move file... Time: 8.748529434204102 / 10s
+Trying to move file... Time: 9.050081729888916 / 10s
+Trying to move file... Time: 9.351635217666626 / 10s
+Trying to move file... Time: 9.653187036514282 / 10s
+Trying to move file... Time: 9.954740047454834 / 10s
+Trying to move file... Time: 10.256292343139648 / 10s
+Moving file failed...
+Waited 10.257292747497559 / max10s
+Name: 2026-05-09_19-23-58.mp4, Nname: Spa-ferrari_296_gt3-35791:23:6472026-05-09_19-23-58.mp4.mp4
