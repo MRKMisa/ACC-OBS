@@ -1,7 +1,5 @@
 import os
 
-if __name__ != "__main__": from .log import set_logging, write_log, log_config_setting, print_log, error_log, cycle_log
-
 
 def get_config_file(Last_Config_settings=None):
     if Last_Config_settings != None: update_mode = True 

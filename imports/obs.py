@@ -170,6 +170,8 @@ def check_recording_matching(client, recording, Config_settings, attemps=0):
     status = client.get_record_status().output_active
     pause_status = client.get_record_status().output_paused
 
+    
+    #TODO: Repeating same code. Make def
     if recording == True and not status: # If var is True but OBS is not recording
         error_log("Recording var does not match real OBS status...")
         error_log(f"Recording: {recording}, OBS status: {status}")
