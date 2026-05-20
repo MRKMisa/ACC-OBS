@@ -29,6 +29,8 @@ def get_config_file(Last_Config_settings=None):
                 for line in config:
                     if "#" in line:
                         line = line.replace(line[line.find("#"):], "")
+                    if str(line).startswith("["):
+                        line = line.replace(line[line.find("["):], "")
 
                     new_config.append(line)
 
