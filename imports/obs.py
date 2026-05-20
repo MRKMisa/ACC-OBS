@@ -72,36 +72,48 @@ def stop_recording_and_rename(client, Config_settings):
                         if file.endswith(".mp4"): # Append only mp4 files
                             videos.append(file) 
                     
-                    try:
-                        last_video = videos[-1]    # Get lastest mp4 file
-                        print_log(f"Get last video...")
-                        print_log(last_video)
-                    except: # If can´t get last mp4 maybe in folder isn´t any... Shuting down script...
-                        error_log("Can´t get last video...")
-                        error_log(f"All files: {files}")
-                        error_log(f"Videos: {videos}")
-                        error_log("Exiting script...")
-                        exit()
+                    for video in videos:       #Trying all videos. If one will not work we will try next...
+                    
+                        try:
+                            last_video = video    # Get lastest mp4 file
+                            print_log(f"Get last video...")
+                            print_log(last_video)
+                        except: # If can´t get last mp4 maybe in folder isn´t any... Shuting down script...
+                            error_log("Can´t get last video...")
+                            error_log(f"All files: {files}")
+                            error_log(f"Videos: {videos}")
+                            error_log("Trying next video...")
+                            continue
+                            exit()
                         
                     
-                    # Check if file match saved files date
-                    my_date = datetime.datetime.strptime(file_name.replace(".mp4", ""), "%Y-%m-%d_%H-%M-%S")
+                        # Check if file match saved files date
+                        my_date = datetime.datetime.strptime(file_name.replace(".mp4", ""), "%Y-%m-%d_%H-%M-%S")
+
+                        try:
+                            last_video_date = datetime.datetime.strptime(last_video.replace(".mp4", ""), "%Y-%m-%d_%H-%M-%S")
+                        except:
+                            error_log("Last video isn´t in right format...")
+                            error_log("Trying next video...")
+                            continue
+                        
+                        
+                        
                     
-                    last_video_date = datetime.datetime.strptime(last_video.replace(".mp4", ""), "%Y-%m-%d_%H-%M-%S")
-                    
-                    diff = my_date - last_video_date
-                    
-                    max_diff = 10 # Max my name date difference to last video date from folder. In seconds
-                    
-                    if diff.total_seconds() > max_diff: # If difference from my name file and last file is greather than max script will not use this file. Because OBS name file by time where you stared recording. But I take date next to start_recording command. But there is some delay. So its can be like second of. That would make that script would not find file name in the folder. So I take last video file and check if it´s small diffence. Diff that would realisticly can be in this process. 10s is very big but it´s safe to use.
-                        error_log(f"Last video from folder is older than my predicted time. Diff: {diff.total_seconds()}. Max: {max_diff}.") # If diff is greather script will stop. Because script think there should be file with this name. So if it´s not there is some issue.
-                        error_log()
-                        error_log("Exiting script...")
-                        exit()
+                        diff = my_date - last_video_date
+                        
+                        max_diff = 10 # Max my name date difference to last video date from folder. In seconds
+                        
+                        if diff.total_seconds() > max_diff: # If difference from my name file and last file is greather than max script will not use this file. Because OBS name file by time where you stared recording. But I take date next to start_recording command. But there is some delay. So its can be like second of. That would make that script would not find file name in the folder. So I take last video file and check if it´s small diffence. Diff that would realisticly can be in this process. 10s is very big but it´s safe to use.
+                            error_log(f"Last video from folder is older than my predicted time. Diff: {diff.total_seconds()}. Max: {max_diff}.") # If diff is greather script will stop. Because script think there should be file with this name. So if it´s not there is some issue.
+                            error_log()
+                            error_log("Exiting script...")
+                            exit()
 
 
-                    print_log(f"Get last file from folder. Diff is just: {diff}s. File: {last_video}")
-                    file_name = last_video # Setting file name to last video in folder
+                        print_log(f"Get last file from folder. Diff is just: {diff}s. File: {last_video}")
+                        file_name = last_video # Setting file name to last video in folder
+                        break
                     break
             
     
