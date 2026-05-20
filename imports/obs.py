@@ -181,16 +181,42 @@ def stop_recording_and_rename(client, Config_settings):
 def check_recording_matching(client, recording, Config_settings, attemps=0):
     status = client.get_record_status().output_active
     pause_status = client.get_record_status().output_paused
-
     
-    #TODO: Repeating same code. Make def
-    if recording == True and not status: # If var is True but OBS is not recording
+    def not_match(action : str):
         error_log("Recording var does not match real OBS status...")
         error_log(f"Recording: {recording}, OBS status: {status}")
         error_log(f"Atempt: {attemps}")
         if attemps <= 3: # If it´s not more than 3 attemps. To not loop script.
-            error_log("Trying to start recording...")
-            start_recording(client) # Trying to start recording
+            if action == "start":
+                error_log("Trying to start recording...")
+                start_recording(client) # Trying to start recording
+            
+            elif action == "stop":
+                error_log("Trying to start recording...")
+                start_recording(client) # Trying to start recording
+                
+                
+            elif action == "startPause":
+                error_log("Trying to start and pause recording...")
+                start_recording(client) # Trying to start recording
+                pause_recording(client, recording)  # Trying to pause recording
+                
+                
+            elif action == "pause":
+                error_log("Trying to pause recording...")
+                pause_recording(client, recording)  # Trying to pause recording
+
+
+            elif action == "unpause":
+                error_log("Trying to unpause recording...")
+                unpause_recording(client, recording)  # Trying to unpause recording           
+
+            elif action == "unpause":
+                error_log("Trying to unpause recording...")
+                unpause_recording(client, recording)  # Trying to unpause recording  
+
+    
+            
             time.sleep(0.1*attemps)
             return check_recording_matching(client, recording, Config_settings, attemps=attemps+1)
         else: # After 3 attemps just exit script...
@@ -200,84 +226,34 @@ def check_recording_matching(client, recording, Config_settings, attemps=0):
             error_log(f"Atempt: {attemps}")
             error_log("Exiting script...")
             return False # Return False to exit script...
+
+    
+    if recording == True and not status: # If var is True but OBS is not recording
+        return not_match("start")
     
     elif recording == False and status:  # If var is False but OBS is recording
-        error_log("Recording var does not match real OBS status...")
-        error_log(f"Recording: {recording}, OBS status: {status}")
-        error_log(f"Atempt: {attemps}")
-        if attemps <= 3: # If it´s not more than 3 attemps. To not loop script.
-            error_log("Trying to stop recording...")
-            stop_recording_and_rename(client, Config_settings) # Try to stop recording
-            time.sleep(0.1*attemps)
-            return check_recording_matching(client, recording, Config_settings, attemps=attemps+1)
-        else: # After 3 attemps just exit script...
-            error_log("After 3 atemps. Stoping script...")
-            error_log("Recording var still does not match real OBS status.")
-            error_log(f"Recording: {recording}, OBS status: {status}")
-            error_log(f"Atempt: {attemps}")
-            error_log("Exiting script...")
-            return False
+        return not_match("stop")
         
         
     elif recording == None and not status:  # If var is None(Pause) but OBS is not recording
-        error_log("Recording var does not match real OBS status...")
-        error_log(f"Recording: {recording}, OBS status: {status}")
-        error_log(f"Atempt: {attemps}")
-        if attemps <= 3: # If it´s not more than 3 attemps. To not loop script.
-            error_log("Trying to start and pause recording...")
-            start_recording(client) # Trying to start recording
-            pause_recording(client, recording)  # Trying to pause recording
-            time.sleep(0.1*attemps)
-            return check_recording_matching(client, recording, Config_settings, attemps=attemps+1)
-        else: # After 3 attemps just exit script...
-            error_log("After 3 atemps. Stoping script...")
-            error_log("Recording var still does not match real OBS status.")
-            error_log(f"Recording: {recording}, OBS status: {status}")
-            error_log(f"Atempt: {attemps}")
-            error_log("Exiting script...")
-            return False
+        return not_match("startPause")
     
     
     
     elif recording == None and not pause_status:  # If var is None(Pause) but OBS is recording but not pause
-        error_log("Recording var does not match real OBS status...")
-        error_log(f"Recording: {recording}, OBS status: {status}")
-        error_log(f"Atempt: {attemps}")
-        if attemps <= 3: # If it´s not more than 3 attemps. To not loop script.
-            error_log("Trying to pause recording...")
-            pause_recording(client, recording)  # Trying to pause recording
-            time.sleep(0.1*attemps)
-            return check_recording_matching(client, recording, Config_settings, attemps=attemps+1)
-        else: # After 3 attemps just exit script...
-            error_log("After 3 atemps. Stoping script...")
-            error_log("Recording var still does not match real OBS status.")
-            error_log(f"Recording: {recording}, OBS status: {status}")
-            error_log(f"Atempt: {attemps}")
-            error_log("Exiting script...")
-            return False
-
+        return not_match("pause")
 
 
     elif recording != None and pause_status: # If var is not None(Pause) but OBS is recording and PAUSE
-        error_log("Recording var does not match real OBS status...")
-        error_log(f"Recording: {recording}, OBS status: {status}")
-        error_log(f"Atempt: {attemps}")
-        if attemps <= 3: # If it´s not more than 3 attemps. To not loop script.
-            error_log("Trying to unpause recording...")
-            unpause_recording(client, recording)  # Trying to unpause recording
-            time.sleep(0.1*attemps)
-            return check_recording_matching(client, recording, Config_settings, attemps=attemps+1)
-        else: # After 3 attemps just exit script...
-            error_log("After 3 atemps. Stoping script...")
-            error_log("Recording var still does not match real OBS status.")
-            error_log(f"Recording: {recording}, OBS status: {status}")
-            error_log(f"Atempt: {attemps}")
-            error_log("Exiting script...")
-            return False
+        return not_match("unpause")
         
         
     else:
         return True # Otherwise just return True everything is ok :)
+
+
+
+
 
 def start_recording(client):
     global file_name
