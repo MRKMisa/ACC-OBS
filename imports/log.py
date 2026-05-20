@@ -10,7 +10,7 @@ logging = 0 # Default
 
 
 # Only write log. Mainly for defs below. But it can be maybe used in code.
-def write_log(log):
+def write_log(log : str):
     global file_name # Get file name
     
     try:
@@ -22,21 +22,21 @@ def write_log(log):
 
 
 # Log for errors will print string and write to log file if logging is 1 or more...
-def error_log(string):
+def error_log(string : str):
     global logging
     print(string)
     
     if logging >= 1: write_log(f"{string}\n")
 
 # Log for basics prints will print string and write to log file if logging 2 or more...
-def print_log(string):
+def print_log(string : str):
     global logging
     print(string)
     
     if logging >= 2: write_log(f"{string}\n")
 
 # Log for cycle prints will print string and write to log file if logging is 3 (It can be annoying for basic use. So it´s for debuging)...
-def cycle_log(string):
+def cycle_log(string : str):
     global logging
     
     if logging >= 3:
@@ -53,7 +53,7 @@ def cycle_log(string):
 
 
 # Settup logging rate from the script. If not called default 0
-def set_logging(inp_logging):
+def set_logging(inp_logging : int):
     global logging
     
     logging = inp_logging

@@ -40,7 +40,7 @@ def get_config_file(Last_Config_settings=None):
             config = delete_comments(config) #Filtring comments
         
         
-        
+            
         
         
         
@@ -320,7 +320,6 @@ def print_from_config_class(Config_settings):
     
     print("Script loop delay: " + Config_settings.loop_delay)
     print(f"Logging: {Config_settings.logging}")
-    
     
     
     

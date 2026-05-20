@@ -178,7 +178,7 @@ def stop_recording_and_rename(client, Config_settings):
         exit()
 
 
-def check_recording_matching(client, recording, Config_settings, attemps=0):
+def check_recording_matching(client, recording : bool, Config_settings, attemps=0):
     status = client.get_record_status().output_active
     pause_status = client.get_record_status().output_paused
     
@@ -270,7 +270,7 @@ def start_recording(client):
     file_name = (x.strftime("%Y-%m-%d_%H-%M-%S")) + ".mp4"
     print_log("Recording started.")
 
-def pause_recording(client, recording):
+def pause_recording(client, recording : bool):
     try:
         print_log("Pausing record...")
         client.pause_record()
@@ -281,7 +281,7 @@ def pause_recording(client, recording):
         error_log(e)
         
 
-def unpause_recording(client, recording):
+def unpause_recording(client, recording : bool):
     try:
         print_log("Unpausing record...")
         client.resume_record()
