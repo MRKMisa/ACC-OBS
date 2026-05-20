@@ -207,6 +207,22 @@ if __name__ == "__main__":
         client = ReqClient(host='localhost', port=Config_settings.obs_port, password=Config_settings.obs_pwd) #Connect to OBS with web socket
     except Exception as e:
         error_log("Can´t connect to OBS...")
+        
+        error_log("Waiting to connecting to OBS...")
+        max_attemps = 10
+        
+        for attemp in range(1, max_attemps-1):
+            time.sleep(0.5)
+            try:
+                client = ReqClient(host='localhost', port=Config_settings.obs_port, password=Config_settings.obs_pwd) #Connect to OBS with web socket
+                break
+            except:
+                error_log(f"Can´t connect to OBS Try: {attemp}/{max_attemps}...")
+            
+            
+        
+        
+       
         error_log("Exiting script...")
         error_log(e)
         exit()

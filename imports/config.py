@@ -1,5 +1,7 @@
 import os
 
+from .log import write_log, print_log, error_log, cycle_log
+
 
 def get_config_file(Last_Config_settings=None):
     if Last_Config_settings != None: update_mode = True 
