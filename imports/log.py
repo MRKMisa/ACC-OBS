@@ -126,9 +126,9 @@ def log_config_setting(Config_settings):
 
 
 
-     
-                
-    
+
+
+
 
 
 if __name__ == "__main__": # Testing env. You can try some def with testing inputs and get output. This will run only if it´s run in this file so if it´s imported this will not run...

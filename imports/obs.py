@@ -7,6 +7,7 @@ from .log import set_logging, write_log, log_config_setting, print_log, error_lo
 global file_name # File name of video
 
 
+# Simple def to start OBS in minimalized mode by file
 def start_obs(cwd=r"C:\Program Files\obs-studio\bin\64bit"):
 
     # Stared OBS but just in minimized mode
@@ -17,6 +18,25 @@ def start_obs(cwd=r"C:\Program Files\obs-studio\bin\64bit"):
     )
 
 
+# Simple starting recording and create file name
+def start_recording(client):
+    global file_name
+    
+    print_log("Starting recording...")
+    status = client.get_record_status().output_active
+    if status:
+        print_log("OBS is already recording.")
+        return
+    
+    client.start_record()
+    
+    x = datetime.datetime.now()
+    file_name = (x.strftime("%Y-%m-%d_%H-%M-%S")) + ".mp4"
+    print_log("Recording started.")
+
+
+
+# Main function stap recording and importently move file from OBS output path to MoTeC folder and rename it
 def stop_recording_and_rename(client, Config_settings):
     global file_name
 
@@ -44,7 +64,7 @@ def stop_recording_and_rename(client, Config_settings):
         
         start = time.time()
         
-        while not os.path.exists(f"{Config_settings.obs_output_path}/{file_name}"): # If file exists...
+        while not os.path.exists(f"{Config_settings.obs_output_path}/{file_name}"): # If file not exists...
             time.sleep(0.3)
             
             if time.time() >= start + max_OBS_wait_time: # If it´s waiting more than max wait time...
@@ -83,6 +103,8 @@ def stop_recording_and_rename(client, Config_settings):
                             error_log(f"All files: {files}")
                             error_log(f"Videos: {videos}")
                             error_log("Trying next video...")
+                            
+                            last_video = None
                             continue
                             exit()
                         
@@ -95,6 +117,8 @@ def stop_recording_and_rename(client, Config_settings):
                         except:
                             error_log("Last video isn´t in right format...")
                             error_log("Trying next video...")
+                            
+                            last_video = None
                             continue
                         
                         
@@ -107,8 +131,9 @@ def stop_recording_and_rename(client, Config_settings):
                         if diff.total_seconds() > max_diff: # If difference from my name file and last file is greather than max script will not use this file. Because OBS name file by time where you stared recording. But I take date next to start_recording command. But there is some delay. So its can be like second of. That would make that script would not find file name in the folder. So I take last video file and check if it´s small diffence. Diff that would realisticly can be in this process. 10s is very big but it´s safe to use.
                             error_log(f"Last video from folder is older than my predicted time. Diff: {diff.total_seconds()}. Max: {max_diff}.") # If diff is greather script will stop. Because script think there should be file with this name. So if it´s not there is some issue.
                             error_log()
-                            error_log("Exiting script...")
-                            exit()
+                            error_log("Trying next video...")
+                            last_video = None
+                            continue
 
 
                         print_log(f"Get last file from folder. Diff is just: {diff}s. File: {last_video}")
@@ -118,7 +143,12 @@ def stop_recording_and_rename(client, Config_settings):
             
     
                 
-        
+    if last_video == None:
+        error_log("None video is in right format or in right delay...")
+        error_log(f"{Config_settings.obs_output_path}/")
+        error_log(os.listdir(Config_settings.obs_output_path))
+        error_log("Exiting script...")
+        exit()        
     
 
     if os.path.exists(f"{Config_settings.obs_output_path}/{file_name}"):
@@ -178,10 +208,13 @@ def stop_recording_and_rename(client, Config_settings):
         exit()
 
 
+# Checking if script variable match real OBS state
 def check_recording_matching(client, recording : bool, Config_settings, attemps=0):
-    status = client.get_record_status().output_active
-    pause_status = client.get_record_status().output_paused
+    status = client.get_record_status().output_active # OBS state
+    pause_status = client.get_record_status().output_paused # OBS record pause state
     
+    
+    # Def what to do if states dont match. Actions in the end are differend in differents states
     def not_match(action : str):
         error_log("Recording var does not match real OBS status...")
         error_log(f"Recording: {recording}, OBS status: {status}")
@@ -228,6 +261,10 @@ def check_recording_matching(client, recording : bool, Config_settings, attemps=
             return False # Return False to exit script...
 
     
+    
+    
+    ## Scenarios
+    
     if recording == True and not status: # If var is True but OBS is not recording
         return not_match("start")
     
@@ -255,21 +292,7 @@ def check_recording_matching(client, recording : bool, Config_settings, attemps=
 
 
 
-def start_recording(client):
-    global file_name
-    
-    print_log("Starting recording...")
-    status = client.get_record_status().output_active
-    if status:
-        print_log("OBS is already recording.")
-        return
-    
-    client.start_record()
-    
-    x = datetime.datetime.now()
-    file_name = (x.strftime("%Y-%m-%d_%H-%M-%S")) + ".mp4"
-    print_log("Recording started.")
-
+# Just pause recording
 def pause_recording(client, recording : bool):
     try:
         print_log("Pausing record...")
@@ -279,8 +302,9 @@ def pause_recording(client, recording : bool):
         error_log("Can´t pause record...")
         error_log("Recording: " + recording, "OBS status: " + client.get_record_status().output_active)
         error_log(e)
-        
 
+
+# Just unpause recording
 def unpause_recording(client, recording : bool):
     try:
         print_log("Unpausing record...")
@@ -293,7 +317,7 @@ def unpause_recording(client, recording : bool):
 
 
 
-
+# Check if OBS is ready to use. Sometimes OBS is starting and got error that OBS is not ready to use.
 def check_OBS_ready(client):
     
     try:
@@ -322,7 +346,7 @@ def check_OBS_ready(client):
     return False # Return False that OBS isn´t ready...
 
 
-if __name__ == "__main__":
+if __name__ == "__main__": # Testing env. You can try some def with testing inputs and get output. This will run only if it´s run in this file so if it´s imported this will not run...
     
     
     #Get obs_app_path from config.ini
