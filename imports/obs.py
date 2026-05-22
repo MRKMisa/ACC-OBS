@@ -143,12 +143,12 @@ def stop_recording_and_rename(client, Config_settings):
             
     
                 
-    if last_video == None:
-        error_log("None video is in right format or in right delay...")
-        error_log(f"{Config_settings.obs_output_path}/")
-        error_log(os.listdir(Config_settings.obs_output_path))
-        error_log("Exiting script...")
-        exit()        
+        if last_video == None:
+            error_log("None video is in right format or in right delay...")
+            error_log(f"{Config_settings.obs_output_path}/")
+            error_log(os.listdir(Config_settings.obs_output_path))
+            error_log("Exiting script...")
+            exit()        
     
 
     if os.path.exists(f"{Config_settings.obs_output_path}/{file_name}"):

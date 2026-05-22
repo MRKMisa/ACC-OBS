@@ -209,10 +209,10 @@ if __name__ == "__main__":
         error_log("Can´t connect to OBS...")
         
         error_log("Waiting to connecting to OBS...")
-        max_attemps = 10
+        max_attemps = 20
         
         for attemp in range(1, max_attemps-1):
-            time.sleep(0.5)
+            time.sleep(0.7)
             try:
                 client = ReqClient(host='localhost', port=Config_settings.obs_port, password=Config_settings.obs_pwd) #Connect to OBS with web socket
                 break
@@ -237,5 +237,10 @@ if __name__ == "__main__":
     
     
     
-    
-    run()
+    try:
+        run()
+    except Exception as e:
+        error_log("Error in run...")
+        error_log("")
+        error_log(e)
+        exit()
