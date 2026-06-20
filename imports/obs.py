@@ -130,7 +130,7 @@ def stop_recording_and_rename(client, Config_settings):
                         
                         if diff.total_seconds() > max_diff: # If difference from my name file and last file is greather than max script will not use this file. Because OBS name file by time where you stared recording. But I take date next to start_recording command. But there is some delay. So its can be like second of. That would make that script would not find file name in the folder. So I take last video file and check if it´s small diffence. Diff that would realisticly can be in this process. 10s is very big but it´s safe to use.
                             error_log(f"Last video from folder is older than my predicted time. Diff: {diff.total_seconds()}. Max: {max_diff}.") # If diff is greather script will stop. Because script think there should be file with this name. So if it´s not there is some issue.
-                            error_log()
+                            error_log("")
                             error_log("Trying next video...")
                             last_video = None
                             continue
@@ -191,7 +191,7 @@ def stop_recording_and_rename(client, Config_settings):
         error_log(f"Waited {(time.time() - start)} / max{max_OBS_wait_time}s")
         
         error_log(f"Name: {file_name}, Nname: {nname}")
-        error_log()
+        error_log("")
         
         error_log(f"Whole path: {Config_settings.obs_output_path}/{file_name} > {Config_settings.motec_path}/{nname}")
         error_log("Exiting script...")
